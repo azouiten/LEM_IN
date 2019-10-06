@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 00:33:06 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/06 11:34:54 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/06 13:36:47 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ static int			ft_append_options(t_data *data, t_input **temp,
 	else if (ft_strcmp((*temp)->line, "##end") == 0)
 		position = 9;
 	if (position == 0 || position == 9)
+	{
 		(*temp) = (*temp)->next;
+		if ((*temp)->line[0] == '#')
+			return (0);
+	}
 	if (!(*temp))
 		return (0);
 	name = ft_extract_name((*temp)->line);
@@ -45,7 +49,7 @@ static int			ft_append_options(t_data *data, t_input **temp,
 	if (hash > data->max_hash)
 		data->max_hash = hash;
 	ft_strdel(&name);
-	return (ft_append_vertex(data, hash, (*temp)->line, 0));
+	return (ft_append_vertex(data, hash, (*temp)->line, position));
 }
 
 static int			ft_loop_hash(t_data *data, t_input **temp, int succ)

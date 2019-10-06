@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 11:03:27 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/05 17:40:12 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/06 13:40:55 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,17 @@ int				ft_append_vertex(t_data *data, int hash, char *line,
 		current->next->next = NULL;
 		current->next->edges = NULL;
 		if (vertex_position == 0)
+		{
+			if (data->start)
+				return (0);
 			data->start = current->next;
+		}
 		else if (vertex_position == 9)
+		{
+			if (data->end)
+				return (0);
 			data->end = current->next;
+		}
 	}
 	return (1);
 }

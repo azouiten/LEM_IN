@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 14:26:15 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/06 11:40:57 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/06 13:32:36 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int					main(void)
 	t_data			data;
 
 	ft_initialize_hdata(&data);
-	if (ft_get_input(&data) == -1 || ft_create_data(&data) == -1)
+	if (ft_get_input(&data) == -1 || ft_create_data(&data) == -1 
+		|| !data.start || !data.end)
 	{
 		ft_printf("ERROR\n");
 		return (ft_free_data(&data));
