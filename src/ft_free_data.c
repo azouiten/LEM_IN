@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 04:30:19 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/06 12:04:27 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/06 19:08:56 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,36 @@ static int		ft_free_htable(t_data *data)
 	return (0);
 }
 
+static void	ft_free_queue(t_data *data)
+{
+        t_queue *head_queue;
+        t_queue *temp_queue;
+
+        head_queue = data->queue;
+        while (head_path)
+        {
+                temp = head_queue;
+               	ft_free_paths(head_queue->path);
+                head_path = head_path->next;
+                ft_memdel((void**)&temp);
+        }
+}
+
+static void	ft_free_paths(t_data *data)
+{
+	t_paths *head_path;
+	t_paths *temp_path;
+
+	head_path = data->paths;
+	while (head_path)
+	{
+		temp = head_path;
+		ft_strdel(&head_path->path);
+		head_path = head_path->next;
+		ft_memdel((void**)&temp);
+	}
+}
+
 int				ft_free_data(t_data *data)
 {
 	t_input		*head_copy;
@@ -72,5 +102,23 @@ int				ft_free_data(t_data *data)
 	}
 	if (data->hash_table)
 		ft_free_htable(data);
+	if (data->queue)
+		ft_free_queue(data);
+	if (data->paths)
+		ft_free_paths(data);
 	return (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
