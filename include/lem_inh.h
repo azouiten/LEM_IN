@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 20:47:00 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/06 11:26:07 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/06 17:16:04 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,20 @@
 # include <unistd.h>
 # include <string.h>
 # include <libft.h>
+
+typedef	struct			s_queue // new
+{
+	struct s_vertices	*item;
+	struct s_queue		*last;
+	struct s_queue		*next;
+	struct s_paths		*path;
+}						t_queue;
+
+typedef	struct			s_paths // new
+{
+	char				*path;
+	struct	s_paths		*next;
+}						t_paths;
 
 typedef struct			s_input
 {
@@ -51,6 +65,8 @@ typedef struct			s_data
 	struct s_vertices	*start;
 	struct s_vertices	*end;
 	struct s_input		*input_head;
+	struct s_queue		*queue; // new
+	struct s_paths		*paths; // new
 }						t_data;
 
 int						ft_free_data(t_data *data);
