@@ -6,13 +6,13 @@
 #    By: ohachim <ohachim@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/24 13:47:22 by ohachim           #+#    #+#              #
-#    Updated: 2019/10/06 11:24:29 by ohachim          ###   ########.fr        #
+#    Updated: 2019/10/06 17:34:34 by ohachim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC_PATH = src
 
-SRC_NAME = ft_lem_in.c \
+SRC_NAME = ft_get_input.c \
 	   ft_free_data.c \
 	   ft_create_data.c \
 	   ft_error_input.c \
@@ -24,7 +24,8 @@ SRC_NAME = ft_lem_in.c \
 	   ft_check_validity.c \
 	   ft_extract_edge.c \
 	   ft_extract_connection.c \
-	   ft_initialize_hdata.c
+	   ft_initialize_hdata.c \
+	   ft_parse.c
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 

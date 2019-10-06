@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 20:47:00 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/06 17:16:04 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/10/06 17:35:03 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct			s_data
 	struct s_paths		*paths; // new
 }						t_data;
 
+int                                     	ft_get_input(t_data *data);
 int						ft_free_data(t_data *data);
 int						ft_create_data(t_data *data);
 int						ft_error_input(char *line);
@@ -83,5 +84,6 @@ int						ft_check_validity(t_data *data, char *name,
 char					*ft_extract_edge(char *line);
 char					*ft_extract_connection(char *line);
 void					ft_initialize_hdata(t_data *data);
+void					ft_parse(t_data *data);
 
 #endif
