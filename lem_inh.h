@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 20:47:00 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/07 18:36:33 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/10/07 16:21:29 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef	struct			s_queue // new
 	struct s_vertices	*item;
 	struct s_queue		*last;
 	char				*path;
-	int					status;
 	struct s_queue		*next;
 }						t_queue;
 
@@ -78,12 +77,5 @@ int						ft_check_validity(t_data *data, char *name,
 char					*ft_extract_edge(char *line);
 char					*ft_extract_connection(char *line);
 void					ft_initialize_hdata(t_data *data);
-void					ft_parse(t_data *data);
-int						ft_get_input(t_data *data);
-
-// anas's stuff
-
-void					ft_exit(t_data *data);
-void					ft_bfs(t_data *data);
 
 #endif

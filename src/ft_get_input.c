@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:29:07 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/06 17:41:05 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/07 17:47:06 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int					ft_get_input(t_data *data)
 	return (1);
 }
 
-int					main(void)
+/*int					main(void)
 {
 	t_data			data;
 
@@ -60,4 +60,4 @@ int					main(void)
 	data.hash_table[1]->name, data.hash_table[1]->edges->connection->name);
 	ft_free_data(&data);
 	return (0);
-}
+}*/
