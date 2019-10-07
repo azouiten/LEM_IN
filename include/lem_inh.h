@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 20:47:00 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/07 17:34:56 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/10/07 17:40:57 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ char					*ft_extract_edge(char *line);
 char					*ft_extract_connection(char *line);
 void					ft_initialize_hdata(t_data *data);
 void					ft_parse(t_data *data);
+int						ft_get_input(t_data *data);
 
 #endif
