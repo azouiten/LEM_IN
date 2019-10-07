@@ -6,7 +6,7 @@
 /*   By: azouiten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/10/07 22:03:21 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/10/07 22:25:40 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static	int		ft_check_last(t_data *data)
 	t_queue	*queue;
 
 	edg = data->queue->item->edges;
+	//ft_printf("[%s]\n", data->end->name);
 	if (data->queue->item == data->end)
 		return (1);
 	while (edg)
@@ -52,6 +53,7 @@ static	int		ft_check_last(t_data *data)
 		data->queue->last = data->queue->last->next;
 		edg = edg->next;
 	}
+	ft_printf("{%s}\n", data->queue->item->name);
 	if (data->queue->next == NULL)
 		return (1);
 	data->queue->next->last = data->queue->last;
@@ -64,6 +66,9 @@ static	int		ft_check_last(t_data *data)
 
 void			ft_bfs(t_data *data)
 {
+	int	i;
+
+	i = 0;
 	ft_init_queue(data);
 	while (!ft_check_last(data));
 	printf("path : %s\n", data->queue->path);
