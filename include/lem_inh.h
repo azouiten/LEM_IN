@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 20:47:00 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/06 17:35:03 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/07 17:34:56 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,9 @@ typedef	struct			s_queue // new
 {
 	struct s_vertices	*item;
 	struct s_queue		*last;
-	struct s_queue		*next;
-	struct s_paths		*path;
-}						t_queue;
-
-typedef	struct			s_paths // new
-{
 	char				*path;
-	struct	s_paths		*next;
-}						t_paths;
+	struct s_queue		*next;
+}						t_queue;
 
 typedef struct			s_input
 {
@@ -69,7 +63,6 @@ typedef struct			s_data
 	struct s_paths		*paths; // new
 }						t_data;
 
-int                                     	ft_get_input(t_data *data);
 int						ft_free_data(t_data *data);
 int						ft_create_data(t_data *data);
 int						ft_error_input(char *line);
