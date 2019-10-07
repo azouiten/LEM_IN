@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 20:47:00 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/07 18:36:33 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/10/07 21:55:51 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char					*ft_extract_connection(char *line);
 void					ft_initialize_hdata(t_data *data);
 void					ft_parse(t_data *data);
 int						ft_get_input(t_data *data);
+t_queue					*ft_add_queue(t_data *data, t_vertices **vertex, char *path); // new
 
 // anas's stuff
 
