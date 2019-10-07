@@ -6,19 +6,19 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 04:30:19 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/06 19:08:56 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/07 12:44:43 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_inh.h"
 
-static int		ft_free_edges(t_vertices **vertex)
+static void		ft_free_edges(t_vertices **vertex)
 {
 	t_edges		*temp_edge;
 	t_edges		*head_edge;
 
 	if (!(*vertex)->edges)
-		return (0);
+		return ;
 	head_edge = (*vertex)->edges;
 	while (head_edge)
 	{
@@ -26,10 +26,9 @@ static int		ft_free_edges(t_vertices **vertex)
 		head_edge = head_edge->next;
 		ft_memdel((void**)&temp_edge);
 	}
-	return (1);
 }
 
-static int		ft_free_htable(t_data *data)
+static void		ft_free_htable(t_data *data)
 {
 	int			hn;
 	t_vertices	*temp;
@@ -54,21 +53,27 @@ static int		ft_free_htable(t_data *data)
 	}
 	free(data->hash_table);
 	data->hash_table = 0;
-	return (0);
 }
 
 static void	ft_free_queue(t_data *data)
 {
         t_queue *head_queue;
         t_queue *temp_queue;
+	t_paths	*temp_path;
 
         head_queue = data->queue;
-        while (head_path)
+        while (head_queue)
         {
-                temp = head_queue;
-               	ft_free_paths(head_queue->path);
-                head_path = head_path->next;
-                ft_memdel((void**)&temp);
+		while (head_queue->path)
+		{
+			temp_path = head_queue->path;
+			ft_strdel(&head_queue->path->path);
+			head_queue->path = head_queue->path->next;
+			ft_memdel((void**)&temp_path);
+		}
+                temp_queue = head_queue;
+                head_queue = head_queue->next;
+                ft_memdel((void**)&temp_queue);
         }
 }
 
@@ -80,10 +85,10 @@ static void	ft_free_paths(t_data *data)
 	head_path = data->paths;
 	while (head_path)
 	{
-		temp = head_path;
+		temp_path = head_path;
 		ft_strdel(&head_path->path);
 		head_path = head_path->next;
-		ft_memdel((void**)&temp);
+		ft_memdel((void**)&temp_path);
 	}
 }
 
