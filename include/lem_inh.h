@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 20:47:00 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/07 21:55:51 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/08 15:35:33 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct			s_edges
 
 typedef struct			s_vertices
 {
+	int					visited;
 	int					status;
 	char				*name;
 	int					hash;
