@@ -6,7 +6,7 @@
 /*   By: azouiten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/10/08 15:49:33 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/10/08 18:43:39 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,8 @@ static	int		ft_check_last(t_data *data)
 		data->queue->last = data->queue->last->next;
 		edg = edg->next;
 	}
-	ft_printf("{%s}\n", data->queue->item->name);
 	if (data->queue->next == NULL)
-		return (1);
+		ft_exit(data);
 	data->queue->next->last = data->queue->last;
 	queue = data->queue;
 	data->queue = data->queue->next;
