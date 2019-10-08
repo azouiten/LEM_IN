@@ -6,7 +6,7 @@
 /*   By: azouiten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/10/08 15:39:59 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/08 15:49:33 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static	int		ft_check_last(t_data *data)
 		return (1);
 	while (edg)
 	{
-		if (edg->status == 0 || edg->connection->status == 0)
+		if (!edg->status || !edg->connection->status || edg->connection->visited == 1)
 		{
 			edg = edg->next;
 			continue ;		
