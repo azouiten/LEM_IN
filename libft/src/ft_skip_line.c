@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 14:47:19 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/05 14:27:32 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/08 19:43:38 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_get_nline(char **line, int fd, int retadd)
 	int		ret;
 
 	temp = NULL;
-	if (!(*line = ft_strnew(0)))
+	if (!(*line = ft_strnew(1)))
 		return (-1);
 	while ((ret = read(fd, buf, 1)))
 	{
@@ -41,7 +41,7 @@ static int	ft_get_nline(char **line, int fd, int retadd)
 			break ;
 	}
 	ft_strdel(&temp);
-	line[0][retadd - 1] = '\0';
+	line[0][retadd ? retadd - 1 : retadd] = '\0';
 	return (retadd);
 }
 
@@ -50,8 +50,7 @@ int			ft_skip_line(char **line, int fd)
 	char	*temp;
 	int		t;
 
-	temp = *line;
+	ft_strdel(line);
 	t = ft_get_nline(line, fd, 0);
-	ft_strdel(&temp);
 	return (t);
 }

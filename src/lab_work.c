@@ -6,7 +6,7 @@
 /*   By: azouiten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/10/08 18:43:39 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/10/08 21:28:25 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ static	void	ft_init_queue(t_data *data)
 	if (!(data->queue = (t_queue*)malloc(sizeof(t_queue))))
 		ft_exit(data);
 	if (!(data->queue->path = ft_strdup(data->start->name)))
-		ft_exit(data);
-	if (!(data->queue->last = (t_queue*)malloc(sizeof(t_queue))))
 		ft_exit(data);
 	data->queue->item = data->start;
 	data->queue->last = data->queue;
@@ -57,8 +55,8 @@ static	int		ft_check_last(t_data *data)
 	data->queue->next->last = data->queue->last;
 	queue = data->queue;
 	data->queue = data->queue->next;
-	free(queue->path);
-	free(queue);
+	ft_memdel((void**)&queue->path);
+	ft_memdel((void**)&queue);
 	return (0);
 }
 
@@ -78,5 +76,6 @@ int		main(void)
 
 	ft_parse(&data);
 	ft_bfs(&data);
+	ft_free_data(&data);
 	return (0);
 }

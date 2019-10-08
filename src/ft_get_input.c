@@ -6,11 +6,17 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:29:07 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/07 17:47:06 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/10/08 19:54:18 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_inh.h"
+
+static int	ft_error_return(char **str)
+{
+	ft_strdel(str);
+	return (-1);
+}
 
 static t_input		*ft_input_node(char *line)
 {
@@ -34,16 +40,16 @@ int					ft_get_input(t_data *data)
 
 	temp = NULL;
 	if ((ft_skip_line(&temp, 0) == -1))
-		return (-1);
+		return (ft_error_return(&temp));
 	if (!(input = ft_input_node(temp)))
-		return (-1);
+		return (ft_error_return(&temp));
 	data->input_head = input;
 	while ((ret = ft_skip_line(&temp, 0)))
 	{
 		if (ret == -1)
-			return (-1);
+			return (ft_error_return(&temp));
 		if (!(input->next = ft_input_node(temp)))
-			return (-1);
+			return (ft_error_return(&temp));
 		input = input->next;
 	}
 	ft_strdel(&temp);
