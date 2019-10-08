@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 11:03:27 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/07 21:56:22 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/08 15:48:19 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int		ft_first_node(t_data *data, int hash, char *line,
 		return (0);
 	if (!(data->hash_table[hash]->name = ft_extract_name(line)))
 		return (0);
+	data->hash_table[hash]->visited = 0;
 	data->hash_table[hash]->status = 1;
 	data->hash_table[hash]->hash = hash;
 	data->hash_table[hash]->next = NULL;
@@ -75,6 +76,7 @@ int				ft_append_vertex(t_data *data, int hash, char *line,
 		if (!(current->next = (t_vertices*)malloc(sizeof(t_vertices)))
 			|| !(current->next->name = ft_extract_name(line)))
 			return (0);
+		current->next->visited = 0;
 		current->next->status = 1;
 		current->next->hash = hash;
 		current->next->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 21:39:38 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/07 21:56:37 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/08 15:44:51 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_queue	*ft_add_queue(t_data *data, t_vertices **vertex, char *path)
 	if (!(queue = (t_queue*)malloc(sizeof(t_queue))))
 		ft_exit(data);
 	queue->item = *vertex;
+	(*vertex)->visited = 1;
 	if (!(queue->path = ft_strjoin(path, " ")))
 		ft_exit(data);
 	temp = queue->path;
