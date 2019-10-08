@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 04:30:19 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/07 17:38:16 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/08 16:07:27 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int				ft_free_data(t_data *data)
 {
 	t_input		*head_copy;
 	t_input		*temp;
+	t_v_buffer	*tmp;
 
 	head_copy = data->input_head;
 	while (head_copy)
@@ -87,6 +88,12 @@ int				ft_free_data(t_data *data)
 		ft_free_htable(data);
 	if (data->queue)
 		ft_free_queue(data);
+	while (data->visited)
+	{
+		tmp = data->visited;
+		data->visited = data->visited->next;
+		free(tmp);
+	}
 	return (0);
 }
 
