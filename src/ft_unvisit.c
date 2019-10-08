@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_initialize_hdata.c                              :+:      :+:    :+:   */
+/*   ft_unvisit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/06 11:25:38 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/08 16:08:17 by ohachim          ###   ########.fr       */
+/*   Created: 2019/10/08 16:00:43 by ohachim           #+#    #+#             */
+/*   Updated: 2019/10/08 16:07:31 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_inh.h"
 
-void	ft_initialize_hdata(t_data *data)
+void	ft_unvisit(t_vbuffer *visited)
 {
-	data->ants = 0;
-	data->vertices = 0;
-	data->max_hash = 0;
-	data->queue = 0;
-	data->paths = 0;
-	data->hash_table = NULL;
-	data->start = NULL;
-	data->end = NULL;
-	data->input_head = NULL;
-	data->visited = NULL;
+	t_vbuffer	*temp_visited;
+
+	temp_visited = visited;
+	while (temp_visited)
+	{
+		temp_visited->vertex->visited = 1;
+		temp_visited = temp_visited->next;
+	}
+
 }

@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 20:47:00 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/08 15:35:33 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/08 16:16:17 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void					ft_initialize_hdata(t_data *data);
 void					ft_parse(t_data *data);
 int						ft_get_input(t_data *data);
 t_queue					*ft_add_queue(t_data *data, t_vertices **vertex, char *path); // new
-
+void					ft_unvisit(t_vbuffer *visited);
 // anas's stuff
 
 void					ft_exit(t_data *data);

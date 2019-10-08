@@ -6,7 +6,7 @@
 #    By: ohachim <ohachim@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/24 13:47:22 by ohachim           #+#    #+#              #
-#    Updated: 2019/10/07 21:55:10 by ohachim          ###   ########.fr        #
+#    Updated: 2019/10/08 16:14:52 by ohachim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRC_NAME = ft_get_input.c \
 	   ft_initialize_hdata.c \
 	   ft_parse.c \
 	   lab_work.c \
-	   ft_add_queue.c
+	   ft_add_queue.c \
+	   ft_unvisit.c
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
