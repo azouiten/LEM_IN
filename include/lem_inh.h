@@ -6,7 +6,8 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 20:47:00 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/08 16:16:17 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/08 16:20:53 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/08 16:07:59 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +18,12 @@
 # include <unistd.h>
 # include <string.h>
 # include <libft.h>
+
+typedef	struct			s_v_buffer
+{
+	struct s_vertices	*vertex;
+	struct s_v_buffer	*next;
+}						t_v_buffer;
 
 typedef	struct			s_queue // new
 {
@@ -57,6 +64,7 @@ typedef struct			s_data
 	int					ants;
 	int					vertices;
 	int					max_hash;
+	struct s_v_buffer	*visited;
 	struct s_vertices	**hash_table;
 	struct s_vertices	*start;
 	struct s_vertices	*end;
@@ -82,7 +90,7 @@ void					ft_initialize_hdata(t_data *data);
 void					ft_parse(t_data *data);
 int						ft_get_input(t_data *data);
 t_queue					*ft_add_queue(t_data *data, t_vertices **vertex, char *path); // new
-void					ft_unvisit(t_vbuffer *visited);
+void					ft_unvisit(t_v_buffer *visited);
 // anas's stuff
 
 void					ft_exit(t_data *data);
