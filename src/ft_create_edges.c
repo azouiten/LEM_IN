@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:17:10 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/10 22:18:04 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/10 22:53:57 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,33 +60,32 @@ static int		ft_finish_assign(char **name, char **connection,
 	return (1);
 }
 
-static int		ft_make_connection(t_data *data, t_input *input,
+static int		ft_make_connection(t_data *data, t_input *put,
 					int hash_name, int hash_connection)
 {
-	char		*name;
+	char		*nod;
 	char		*connection;
 	t_vertices	*temp_name;
 	t_vertices	*temp_connection;
 
-	while (input)
+	while (put)
 	{
-		if (input->line[0] == '#' && (input = input->next))
+		if (put->line[0] == '#' && (put = put->next))
 			continue ;
-		else if (!input)
+		else if (!put)
 			break ;
-		if (!ft_strchr(input->line, '-') || !(name = ft_extract_edge(input->line))
-			|| !(connection = ft_extract_connection(input->line))
-			|| !(ft_check_validity(data, name, connection)))
+		if (!ft_strchr(put->line, '-') || !(nod = ft_extract_edge(put->line))
+			|| !(connection = ft_extract_connection(put->line))
+			|| !(ft_check_validity(data, nod, connection)))
 			return (0);
-		if ((((hash_name = ft_hash_it(name, data->vertices)) == -1))
+		if ((((hash_name = ft_hash_it(nod, data->vertices)) == -1))
 		|| ((hash_connection = ft_hash_it(connection, data->vertices)) == -1))
 			return (0);
-		temp_name = data->hash_table[hash_name];
-		temp_connection = data->hash_table[hash_connection];
-		if (!(ft_finish_assign(&name, &connection,
-								&temp_name, &temp_connection)))
+		if (!(temp_name = data->hash_table[hash_name]) ||
+		!(temp_connection = data->hash_table[hash_connection]) ||
+		!(ft_finish_assign(&nod, &connection, &temp_name, &temp_connection)))
 			return (0);
-		input = input->next;
+		put = put->next;
 	}
 	return (1);
 }

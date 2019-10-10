@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_inh.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/16 20:47:00 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/08 16:20:53 by ohachim          ###   ########.fr       */
-/*   Updated: 2019/10/08 16:07:59 by azouiten         ###   ########.fr       */
+/*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
+/*   Updated: 2019/10/10 22:40:36 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +88,8 @@ char					*ft_extract_connection(char *line);
 void					ft_initialize_hdata(t_data *data);
 void					ft_parse(t_data *data);
 int						ft_get_input(t_data *data);
-t_queue					*ft_add_queue(t_data *data, t_vertices **vertex, char *path); // new
+t_queue					*ft_add_queue(t_data *data, t_vertices 
+					**vertex, char *path); // new
 void					ft_unvisit(t_v_buffer *visited);
 // anas's stuff
 
