@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:17:10 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/08 15:46:41 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/10 22:18:04 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,11 @@ static int		ft_make_connection(t_data *data, t_input *input,
 	{
 		if (input->line[0] == '#' && (input = input->next))
 			continue ;
-		if (!ft_strchr(input->line, '-')
-				|| !(name = ft_extract_edge(input->line))
-				|| !(connection = ft_extract_connection(input->line))
-				|| !(ft_check_validity(data, name, connection)))
+		else if (!input)
+			break ;
+		if (!ft_strchr(input->line, '-') || !(name = ft_extract_edge(input->line))
+			|| !(connection = ft_extract_connection(input->line))
+			|| !(ft_check_validity(data, name, connection)))
 			return (0);
 		if ((((hash_name = ft_hash_it(name, data->vertices)) == -1))
 		|| ((hash_connection = ft_hash_it(connection, data->vertices)) == -1))
