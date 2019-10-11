@@ -6,14 +6,14 @@
 /*   By: azouiten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/10/08 21:28:25 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/11 03:22:19 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_inh.h"
 #include <stdio.h>
 
-void			ft_exit(t_data *data)
+void			ft_exit(t_data *data) // Must get its own file.
 {
 	write(1 ,"ERROR\n", 6);
 	ft_free_data(data);
@@ -46,7 +46,7 @@ static	int		ft_check_last(t_data *data)
 			edg = edg->next;
 			continue ;		
 		}
-		data->queue->last->next = ft_add_queue(data, &edg->connection, data->queue->path);
+		data->queue->last->next = ft_add_queue(data, &edg->connection, data->queue->path); // Must check for NULL return.
 		data->queue->last = data->queue->last->next;
 		edg = edg->next;
 	}

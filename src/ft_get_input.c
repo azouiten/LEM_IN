@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:29:07 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/08 19:54:18 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/11 03:50:41 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	ft_error_return(char **str)
 {
-	ft_strdel(str);
+	if (*str)
+		ft_strdel(str);
 	return (-1);
 }
 

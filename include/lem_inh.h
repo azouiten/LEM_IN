@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/10 22:40:36 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/11 00:46:37 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ typedef struct			s_data
 	struct s_vertices	*end;
 	struct s_input		*input_head;
 	struct s_queue		*queue; // new
-	struct s_paths		*paths; // new
 }						t_data;
 
 int						ft_free_data(t_data *data);

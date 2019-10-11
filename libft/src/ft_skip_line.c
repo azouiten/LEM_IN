@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/19 14:47:19 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/08 19:43:38 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/11 03:48:31 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	ft_error_return(char **str)
 {
-	ft_strdel(str);
+	free(*str);
+	*str = NULL;
 	return (-1);
 }
 
@@ -34,6 +35,8 @@ static int	ft_get_nline(char **line, int fd, int retadd)
 		retadd = ret + retadd;
 		buf[ret] = '\0';
 		temp = *line;
+		if (retadd > 10000)
+			return (ft_error_return(&temp));
 		if (!(ft_isascii(buf[0])) || !(*line = ft_strjoin(*line, buf)))
 			return (ft_error_return(&temp));
 		ft_strdel(&temp);
@@ -52,5 +55,7 @@ int			ft_skip_line(char **line, int fd)
 
 	ft_strdel(line);
 	t = ft_get_nline(line, fd, 0);
+	if (t == -1)
+		*line = 0;
 	return (t);
 }

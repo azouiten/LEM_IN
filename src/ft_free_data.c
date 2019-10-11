@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 04:30:19 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/08 21:27:10 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/11 03:51:51 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static void	ft_free_queue(t_data *data)
         {
                 temp_queue = head_queue;
 		ft_strdel(&head_queue->path);
-//		if (head_queue
                 head_queue = head_queue->next;
                 ft_memdel((void**)&temp_queue);
         }
