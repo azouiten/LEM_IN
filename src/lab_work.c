@@ -6,7 +6,7 @@
 /*   By: azouiten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/10/11 03:22:19 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/11 19:40:50 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static	int		ft_check_last(t_data *data)
 		if (!edg->status || !edg->connection->status || edg->connection->visited == 1)
 		{
 			edg = edg->next;
-			continue ;		
+			continue ;
 		}
 		data->queue->last->next = ft_add_queue(data, &edg->connection, data->queue->path); // Must check for NULL return.
 		data->queue->last = data->queue->last->next;
@@ -69,13 +69,40 @@ void			ft_bfs(t_data *data)
 	while (!ft_check_last(data));
 	printf("path : %s\n", data->queue->path);
 }
+/*
+void	ft_find_patch(t_data *data)
+{
+	char		**str;
+	t_vertices	*ptr1;
+	t_vertices	*ptr2;
+	t_edges		*edg;
 
+	ptr = NULL;
+	if (!(str = ft_split(data->queue->path)))
+		ft_exit(data);
+	while (str[i] != NULL)
+	{
+		ptr1 = data->hashtab[ft_hash_it(str[i], data->vertices)];
+		ptr2 = data->hashtab[ft_hash_it(str[i + 1], data->vertices)];
+		edg = ptr->edges;
+		while (edg)
+		{
+			if (edg->connection == ptr2)
+			{
+				edg->flow = 1;
+				break ;
+			}
+		}
+	}
+}
+*/
 int		main(void)
 {
 	t_data	data;
 
 	ft_parse(&data);
 	ft_bfs(&data);
+	//ft_find_patch(&data);
 	ft_free_data(&data);
 	return (0);
 }
