@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/11 19:10:34 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/10/15 03:01:16 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct			s_input
 typedef struct			s_edges
 {
 	int					status;
+	struct s_edges		*edge_end;
 	struct s_vertices	*connection;
 	int					flow; // new;
 	struct s_edges		*next;
