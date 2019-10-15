@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:17:10 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/10 22:53:57 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/14 01:16:32 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_edges	*ft_create_connection(t_vertices **edge_end)
 	return (edge);
 }
 
-static int		ft_assign_connection(t_vertices **end1, t_vertices **end2)
+static t_edges		*ft_assign_connection(t_vertices **end1, t_vertices **end2)
 {
 	t_edges		*temp_edge;
 
@@ -32,7 +32,7 @@ static int		ft_assign_connection(t_vertices **end1, t_vertices **end2)
 	{
 		if (!((*end1)->edges = ft_create_connection(end2)))
 			return (0);
-		return (1);
+		return ((*end1)->edges);
 	}
 	temp_edge = (*end1)->edges;
 	while (temp_edge->next)
@@ -42,19 +42,24 @@ static int		ft_assign_connection(t_vertices **end1, t_vertices **end2)
 	temp_edge->next->status = 1;
 	temp_edge->next->connection = *end2;
 	temp_edge->next->next = NULL;
-	return (1);
+	return (temp_edge->next);
 }
 
 static int		ft_finish_assign(char **name, char **connection,
 						t_vertices **temp_name, t_vertices **temp_connection)
 {
+	t_edges	*temp_edge0;
+	t_edges	*temp_edge1;
+
 	while (*temp_name && ft_strcmp((*temp_name)->name, *name))
 		*temp_name = (*temp_name)->next;
 	while (*temp_connection && ft_strcmp((*temp_connection)->name, *connection))
 		*temp_connection = (*temp_connection)->next;
-	if (!ft_assign_connection(temp_name, temp_connection)
-			|| !ft_assign_connection(temp_connection, temp_name))
+	if (!(temp_edge0 = ft_assign_connection(temp_name, temp_connection))
+		|| !(temp_edge1 = ft_assign_connection(temp_connection, temp_name)))
 		return (0);
+	temp_edge0->edge_end = temp_edge1;
+	temp_edge1->edge_end = temp_edge0;
 	ft_strdel(name);
 	ft_strdel(connection);
 	return (1);
