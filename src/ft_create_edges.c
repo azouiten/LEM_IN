@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:17:10 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/14 01:16:32 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/19 20:46:27 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static t_edges	*ft_create_connection(t_vertices **edge_end)
 
 	if (!(edge = (t_edges*)malloc(sizeof(t_edges))))
 		return (0);
-	edge->status = 1;
 	edge->connection = *edge_end;
+	edge->flow = 0;
 	edge->next = NULL;
 	return (edge);
 }
@@ -39,7 +39,6 @@ static t_edges		*ft_assign_connection(t_vertices **end1, t_vertices **end2)
 		temp_edge = temp_edge->next;
 	if (!(temp_edge->next = (t_edges*)malloc(sizeof(t_edges))))
 		return (0);
-	temp_edge->next->status = 1;
 	temp_edge->next->connection = *end2;
 	temp_edge->next->next = NULL;
 	return (temp_edge->next);

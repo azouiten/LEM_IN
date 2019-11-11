@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/15 03:01:16 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/10 17:33:51 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,42 @@
 # include <string.h>
 # include <libft.h>
 
+typedef	struct			s_agroups
+{
+	struct s_group		*group;
+	int					score;
+	int					n_vrtx;
+	int					n_pths;
+	struct s_agroups	*next;
+}						t_agroups;
+
+typedef	struct			s_group
+{
+	struct s_path		*path;
+	int					size;	// done
+	int					nbr_id;	// done
+	int					t_vrtx;	// the number of vertices this far!
+	struct s_group		*next;
+}						t_group;
+
 typedef	struct			s_v_buffer
 {
 	struct s_vertices	*vertex;
 	struct s_v_buffer	*next;
 }						t_v_buffer;
 
-typedef	struct			s_queue // new
+typedef	struct			s_path
+{
+	struct s_vertices	*vertex;
+	struct s_edges		*edg;
+	struct s_path		*next;
+}						t_path;
+
+typedef	struct			s_queue
 {
 	struct s_vertices	*item;
 	struct s_queue		*last;
-	char				*path;
+	struct s_path		*path;
 	int					status;
 	struct s_queue		*next;
 }						t_queue;
@@ -41,7 +66,6 @@ typedef struct			s_input
 
 typedef struct			s_edges
 {
-	int					status;
 	struct s_edges		*edge_end;
 	struct s_vertices	*connection;
 	int					flow; // new;
@@ -51,7 +75,7 @@ typedef struct			s_edges
 typedef struct			s_vertices
 {
 	int					visited;
-	int					status;
+	int					flow;
 	char				*name;
 	int					hash;
 	int					x;
@@ -71,6 +95,10 @@ typedef struct			s_data
 	struct s_vertices	*end;
 	struct s_input		*input_head;
 	struct s_queue		*queue; // new
+	struct s_queue		*free_q;// keeps the head of the q to be freed
+	struct s_path		*path;	// result of the bfs !
+	struct s_group		*groups;
+	struct s_agroups	*agroups;
 }						t_data;
 
 int						ft_free_data(t_data *data);
@@ -90,11 +118,12 @@ void					ft_initialize_hdata(t_data *data);
 void					ft_parse(t_data *data);
 int						ft_get_input(t_data *data);
 t_queue					*ft_add_queue(t_data *data, t_vertices 
-					**vertex, char *path); // new
+						**vertex, t_edges **edg, t_path **pth); // new
 void					ft_unvisit(t_v_buffer *visited);
 // anas's stuff
 
 void					ft_exit(t_data *data);
 void					ft_bfs(t_data *data);
+void					ft_free_queue(t_data *data);
 
 #endif

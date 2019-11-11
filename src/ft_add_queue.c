@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 21:39:38 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/08 16:37:19 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/05 18:12:40 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,14 @@ static t_v_buffer	*ft_visited_node(t_vertices **vertex)
 	return (node);
 }
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * is v_buffer smthing u want, is it the best u can do ? *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 static int	ft_add_vbuffer(t_data *data, t_vertices **vertex)
 {
 	t_v_buffer	*visited;
 
-	/*if (!data->visted)
-	{
-		if (!(data->visited = ft_visited_node(data, vertex)))
-			return (0);
-		return (1);
-	}*/
 	if (!(visited = ft_visited_node(vertex)))
 		return (0);
 	visited->next = data->visited;
@@ -41,22 +39,20 @@ static int	ft_add_vbuffer(t_data *data, t_vertices **vertex)
 	return (1);
 }
 
-t_queue	*ft_add_queue(t_data *data, t_vertices **vertex, char *path)
+t_queue	*ft_add_queue(t_data *data, t_vertices **vertex, t_edges **edg, t_path **pth)
 {
 	t_queue *queue;
-	char	*temp;
 
 	if (!(queue = (t_queue*)malloc(sizeof(t_queue))))
 		ft_exit(data);
 	queue->item = *vertex;
 	if (!(ft_add_vbuffer(data, vertex)))
 		return (0);
-	if (!(queue->path = ft_strjoin(path, " ")))
+	if (!(queue->path = (t_path*)malloc(sizeof(t_path))))
 		ft_exit(data);
-	temp = queue->path;
-	if (!(queue->path = ft_strjoin(queue->path, (*vertex)->name)))
-		ft_exit(data);
-	ft_strdel(&temp);
+	queue->path->vertex = *vertex;
+	queue->path->edg = *edg;
+	queue->path->next = *pth;
 	queue->last = NULL;
 	queue->next = NULL;
 	return (queue);

@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 04:30:19 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/11 03:51:51 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/10/24 13:36:54 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ static void		ft_free_htable(t_data *data)
 	data->hash_table = 0;
 }
 
-static void	ft_free_queue(t_data *data)
+void		ft_free_queue(t_data *data)
 {
-        t_queue *head_queue;
-        t_queue *temp_queue;
+	t_queue *head_queue;
+	t_queue *temp_queue;
 
-        head_queue = data->queue;
-        while (head_queue)
-        {
-                temp_queue = head_queue;
-		ft_strdel(&head_queue->path);
-                head_queue = head_queue->next;
-                ft_memdel((void**)&temp_queue);
-        }
+	head_queue = data->free_q;
+	while (head_queue)
+	{
+		temp_queue = head_queue;
+		ft_memdel((void**)&temp_queue->path);
+		head_queue = head_queue->next;
+		ft_memdel((void**)&temp_queue);
+	}
 }
 
 
@@ -76,8 +76,15 @@ int				ft_free_data(t_data *data)
 	t_input		*head_copy;
 	t_input		*temp;
 	t_v_buffer	*tmp;
+	//t_group		*tmpo;// free the paths in groups
 
 	head_copy = data->input_head;
+	/*while (data->groups)
+	{
+		tmpo = data->groups;
+		data->groups = data->groups->next;
+		ft_memdel((void**)&tmpo);
+	}*/
 	while (head_copy)
 	{
 		temp = head_copy;
