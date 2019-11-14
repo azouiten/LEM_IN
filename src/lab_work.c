@@ -6,7 +6,7 @@
 /*   By: azouiten <azouiten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/10 17:38:30 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/13 18:50:51 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ static	void	ft_init_queue(t_data *data)
 	data->queue->path->next = NULL;
 	data->queue->item = data->start;
 	data->queue->last = data->queue;
+	data->queue->access = 0;
+	data->queue->acc_ptr = NULL;
 	data->queue->next = NULL;
+	data->start->visited = 1; // end quit.
 }
 
 static	int		ft_check_last(t_data *data)
@@ -47,15 +50,20 @@ static	int		ft_check_last(t_data *data)
 	{
 		if (edg->connection->visited == 1 || edg->flow == 1)
 		{
+			ft_printf("[%s][%d]_[%s][%d]- out\n", data->queue->item->name
+		,data->queue->item->visited, edg->connection->name, edg->connection->visited);
 			edg = edg->next;
 			continue ;
 		}
-		data->queue->last->next = ft_add_queue(data, &edg->connection, &edg, &data->queue->path);
+		ft_printf("[%s][%d]_[%s][%d]- in\n", data->queue->item->name
+		,data->queue->item->visited, edg->connection->name, edg->connection->visited);
+		data->queue->last->next = ft_add_queue(data, &edg->connection,
+				&edg, &data->queue->path);
 		data->queue->last = data->queue->last->next;
 		edg = edg->next;
 	}
 	if (data->queue->next == NULL)
-		return (-1); // needs more work!
+		return (-1);
 	data->queue->next->last = data->queue->last;
 	queue = data->queue;
 	data->queue = data->queue->next;
@@ -72,7 +80,11 @@ void			ft_add_flow(t_data *data)
 		if (data->path->edg->edge_end->flow == 1)
 			data->path->edg->edge_end->flow = 0;
 		else
+		{
 			data->path->edg->flow = 1;
+			if (data->path->edg->connection != data->end && data->path->edg->connection != data->start)
+				data->path->vertex->flow = 1;
+		}
 		data->path = data->path->next;
 	}
 }
@@ -108,11 +120,6 @@ void			ft_add_path(t_data *data, t_vertices *vertex)
 	path->next = NULL;
 	group->path = path;
 	group->size = 1;
-	if (data->groups == NULL)
-		group->nbr_id = 1;
-	else
-		group->nbr_id = data->groups->nbr_id + 1;
-	group->t_vrtx = 0;
 	group->next = data->groups;
 	data->groups = group;
 }
@@ -164,12 +171,13 @@ void			ft_collect_paths(t_data *data)
 	}
 	group = data->groups;
 	ft_printf("new group -----------------\n");
+	ft_printf("ants = %d\n", data->ants);
 	while (group)
 	{
 		ft_printf("%d\n", group->size);
 		while (group->path)
 		{
-			ft_printf("{%s}[%d]<-", group->path->vertex->name, group->size);
+			ft_printf("{%s}<-", group->path->vertex->name);
 			group->path = group->path->next;
 		}
 		write (1, "\n", 1);
@@ -180,24 +188,63 @@ void			ft_collect_paths(t_data *data)
 void			ft_add_to_agroup(t_data *data)
 {
 	t_agroups	*all_groups;
+	t_group		*group;
+	//t_agroups	*tmp_grp;
+//	t_path		*path;
 
 	if (!(all_groups = (t_agroups*)malloc(sizeof(t_agroups))))
 		ft_exit(data);
 	all_groups->group = data->groups;
+	group = data->groups;
+	all_groups->n_vrtx = 0;
+	all_groups->n_pths = 0;
+	while (group)
+	{
+		all_groups->n_pths += 1;
+		all_groups->n_vrtx += group->size;
+		group = group->next;
+	}
+	all_groups->score = (((all_groups->n_vrtx + data->ants) / all_groups->n_pths)
+			+ (all_groups->n_vrtx + data->ants) % all_groups->n_pths) - 1;
+//	ft_printf("n_vrtx = %d\nscore = %d\n", all_groups->n_vrtx, all_groups->score);
 	all_groups->next = data->agroups;
 	data->agroups = all_groups;
 	data->groups = NULL;
+/*	tmp_grp = data->agroups;
+	ft_printf("new agroup >> \n");
+	while(tmp_grp)
+	{
+		group = tmp_grp->group;
+		ft_putstr("looping\n");
+		while (group)
+		{
+			path = group->path;
+			ft_putstr("maybe no groups?\n");
+			while(path)
+			{
+				write(1, ">> - ", 4);
+				ft_printf("{%s}->", path->vertex->name);
+				path = path->next;
+			}
+			ft_printf("\n");
+			group = group->next;
+		}
+		tmp_grp = tmp_grp->next;
+	}*/
 }
 
 void			ft_bfs(t_data *data)
 {
 	int	i;
 	t_path *path;
+	t_group	*group;
+	t_agroups	*tmp_grp;
 	int	c;
 
 	c = 0;
 	i = 0;
-	while (i < 20)// data->agroups->score < data->agroups->next->score!
+	while (!data->agroups || !data->agroups->next || data->agroups->score <=
+			data->agroups->next->score)// data->agroups->score < data->agroups->next->score!
 	{
 		i++;
 		ft_init_queue(data);
@@ -211,6 +258,58 @@ void			ft_bfs(t_data *data)
 		ft_collect_paths(data);
 		ft_add_to_agroup(data);
 	}
+	if (c == -1 && !data->agroups)
+		ft_exit(data);
+	else if ((data->agroups && !data->agroups->next) || (data->agroups->next &&
+			data->agroups->score <= data->agroups->next->score))
+		ft_swing_paths(data, data->agroups->group);	
+	else if (data->agroups->next && data->agroups->score > data->agroups->next->score)
+		ft_swing_paths(data, data->agroups->next->group);
+	tmp_grp = data->agroups;
+	while(tmp_grp)
+	{
+		group = tmp_grp->group;
+		while (group)
+		{
+			path = group->path;
+			while(path)
+			{
+				//ft_printf("{%s}->", path->vertex->name);
+				path = path->next;
+			}
+			//ft_printf("\n");
+			group = group->next;
+		}
+		tmp_grp = tmp_grp->next;
+	}
+}
+
+void	ft_swing_paths(t_data *data, t_group *group)
+{
+	t_path	*path_rep;
+	t_path	*tmp;
+	t_path	*pth;
+
+	path_rep = NULL;
+	tmp = NULL;
+	while (group)
+	{
+		pth = group->path;
+		tmp = NULL;
+		while (group->path)
+		{
+			if (!(path_rep = (t_path*)malloc(sizeof(t_path))))
+				ft_exit(data);
+			path_rep->vertex = group->path->vertex;
+			path_rep->edg = NULL;
+			path_rep->next = tmp;
+			tmp = path_rep;
+			group->path = group->path->next;
+		}
+		//ft_free_path(pth);
+		group->path = path_rep;	
+		group = group->next;
+	}
 }
 
 int		main(void)
@@ -219,8 +318,8 @@ int		main(void)
 
 	ft_parse(&data);
 	ft_bfs(&data);
-	ft_free_data(&data);
+//	ft_free_data(&data);
 	return (0);
 }
 // work on optimizing the groups from within!
-// huston we have a problem! .. the four links problem! better fix it even if noone is ever gonna find it! 
+// houston we have a problem! .. the four links problem! better fix it even if noone is ever gonna find it! well they may find it with a small map! 

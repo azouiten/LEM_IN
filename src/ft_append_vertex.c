@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:42:13 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/18 16:02:18 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:59:32 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int		ft_first_node(t_data *data, int hash, char *line,
 		return (0);
 	if (!(data->hash_table[hash]->name = ft_extract_name(line)))
 		return (0);
+	data->hash_table[hash]->flow = 0;
 	data->hash_table[hash]->visited = 0;
 	data->hash_table[hash]->hash = hash;
 	data->hash_table[hash]->next = NULL;
@@ -76,6 +77,7 @@ int				ft_append_vertex(t_data *data, int hash, char *line,
 			|| !(current->next->name = ft_extract_name(line)))
 			return (0);
 		current->next->visited = 0;
+		current->next->flow = 0; // double check with thatks. potatto
 		current->next->hash = hash;
 		current->next->next = NULL;
 		current->next->edges = NULL;

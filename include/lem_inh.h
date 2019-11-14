@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/10 17:33:51 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/14 15:04:16 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ typedef	struct			s_agroups
 typedef	struct			s_group
 {
 	struct s_path		*path;
-	int					size;	// done
-	int					nbr_id;	// done
-	int					t_vrtx;	// the number of vertices this far!
+	int					size;
 	struct s_group		*next;
 }						t_group;
 
@@ -52,6 +50,8 @@ typedef	struct			s_path
 typedef	struct			s_queue
 {
 	struct s_vertices	*item;
+	int					access;
+	struct s_vertices	*acc_ptr;
 	struct s_queue		*last;
 	struct s_path		*path;
 	int					status;
@@ -99,6 +99,7 @@ typedef struct			s_data
 	struct s_path		*path;	// result of the bfs !
 	struct s_group		*groups;
 	struct s_agroups	*agroups;
+	struct s_group		*result;
 }						t_data;
 
 int						ft_free_data(t_data *data);
@@ -125,5 +126,6 @@ void					ft_unvisit(t_v_buffer *visited);
 void					ft_exit(t_data *data);
 void					ft_bfs(t_data *data);
 void					ft_free_queue(t_data *data);
+void					ft_swing_paths(t_data *data, t_group *group);
 
 #endif

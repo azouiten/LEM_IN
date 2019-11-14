@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 21:29:39 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/10 20:41:04 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/13 18:55:14 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static int		ft_vertex_check(t_input *input, int *vertices)
 			(*vertices)++;
 		temp = temp->next;
 	}
+	if (!temp || !ft_strchr(temp->line, '-'))
+		return (0);
 	return (1);
 }
 
