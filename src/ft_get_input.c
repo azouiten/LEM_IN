@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:29:07 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/11 03:50:41 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/14 12:51:06 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int					ft_get_input(t_data *data)
 {
 	t_input			*input;
 	char			*temp;
-	int				ret;
+	int			ret;
 
 	temp = NULL;
 	if ((ft_skip_line(&temp, 0) == -1))
@@ -47,6 +47,11 @@ int					ft_get_input(t_data *data)
 	data->input_head = input;
 	while ((ret = ft_skip_line(&temp, 0)))
 	{
+		if (temp[0] == '\0')
+		{
+			input->next = NULL;
+			break ;
+		}
 		if (ret == -1)
 			return (ft_error_return(&temp));
 		if (!(input->next = ft_input_node(temp)))
