@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 21:39:38 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/13 18:51:44 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/15 10:17:00 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,9 @@ t_queue	*ft_add_queue(t_data *data, t_vertices **vertex, t_edges **edg, t_path *
 	if (!(queue = (t_queue*)malloc(sizeof(t_queue))))
 		ft_exit(data);
 	queue->item = *vertex;
-	if ((*vertex)->flow == 1 && (*edg)->connection->flow == 1)
+	queue->access = 0;
+	if ((*edg)->edge_end->flow == 1)
 		queue->access = 1;
-	else
-		queue->access = 0;
 	if (!(ft_add_vbuffer(data, vertex)))
 		return (0);
 	if (!(queue->path = (t_path*)malloc(sizeof(t_path))))

@@ -6,7 +6,7 @@
 /*   By: azouiten <azouiten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/13 18:50:51 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/15 10:25:55 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ static	int		ft_check_last(t_data *data)
 		return (1);
 	while (edg)
 	{
-		if (edg->connection->visited == 1 || edg->flow == 1)
+		if (edg->connection->visited == 1 || edg->flow == 1 || (data->queue->item->flow == 1 && data->queue->access == 0 && edg->edge_end->flow == 0))
 		{
-			ft_printf("[%s][%d]_[%s][%d]- out\n", data->queue->item->name
-		,data->queue->item->visited, edg->connection->name, edg->connection->visited);
+			//ft_printf("[%s][%d]_[%s][%d]- out\n", data->queue->item->name
+		//,data->queue->item->visited, edg->connection->name, edg->connection->visited);
 			edg = edg->next;
 			continue ;
 		}
-		ft_printf("[%s][%d]_[%s][%d]- in\n", data->queue->item->name
-		,data->queue->item->visited, edg->connection->name, edg->connection->visited);
+		//ft_printf("[%s][%d]_[%s][%d]- in\n", data->queue->item->name
+		//,data->queue->item->visited, edg->connection->name, edg->connection->visited);
 		data->queue->last->next = ft_add_queue(data, &edg->connection,
 				&edg, &data->queue->path);
 		data->queue->last = data->queue->last->next;
@@ -171,7 +171,7 @@ void			ft_collect_paths(t_data *data)
 	}
 	group = data->groups;
 	ft_printf("new group -----------------\n");
-	ft_printf("ants = %d\n", data->ants);
+	/*ft_printf("ants = %d\n", data->ants);
 	while (group)
 	{
 		ft_printf("%d\n", group->size);
@@ -182,7 +182,7 @@ void			ft_collect_paths(t_data *data)
 		}
 		write (1, "\n", 1);
 		group = group->next;
-	}
+	}*/
 }
 
 void			ft_add_to_agroup(t_data *data)
@@ -206,7 +206,7 @@ void			ft_add_to_agroup(t_data *data)
 	}
 	all_groups->score = (((all_groups->n_vrtx + data->ants) / all_groups->n_pths)
 			+ (all_groups->n_vrtx + data->ants) % all_groups->n_pths) - 1;
-//	ft_printf("n_vrtx = %d\nscore = %d\n", all_groups->n_vrtx, all_groups->score);
+	ft_printf("n_vrtx = %d\nscore = %d\n", all_groups->n_vrtx, all_groups->score);
 	all_groups->next = data->agroups;
 	data->agroups = all_groups;
 	data->groups = NULL;
