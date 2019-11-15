@@ -6,7 +6,11 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/11/15 11:23:19 by ohachim          ###   ########.fr       */
+=======
+/*   Updated: 2019/11/15 11:16:17 by azouiten         ###   ########.fr       */
+>>>>>>> eecefc0ad84b6fb727b468fc28f137b12659fc6b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +104,12 @@ typedef struct			s_data
 	struct s_path		*path;	// result of the bfs !
 	struct s_group		*groups;
 	struct s_agroups	*agroups;
+<<<<<<< HEAD
 	struct s_group		*result;
 	struct s_group		*array_result;
+=======
+	struct s_agroups	*result;
+>>>>>>> eecefc0ad84b6fb727b468fc28f137b12659fc6b
 }						t_data;
 
 int						ft_free_data(t_data *data);
@@ -129,6 +137,6 @@ void					ft_unvisit(t_v_buffer *visited);
 void					ft_exit(t_data *data);
 void					ft_bfs(t_data *data);
 void					ft_free_queue(t_data *data);
-void					ft_swing_paths(t_data *data, t_group *group);
+t_agroups				*ft_swing_paths(t_data *data, t_agroups *agroup);
 
 #endif
