@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 11:25:38 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/08 18:36:40 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/15 12:17:09 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,7 @@ void	ft_initialize_hdata(t_data *data)
 	data->input_head = NULL;
 	data->visited = NULL;
 	data->agroups = NULL;
+	data->moving_ant = NULL;
+	data->array_result = NULL;
+	data->result = NULL;
 }

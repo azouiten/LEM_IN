@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/15 11:39:02 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/15 13:41:54 by ohachim          ###   ########.fr       */
 /*   Updated: 2019/11/15 11:16:17 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -86,6 +86,13 @@ typedef struct			s_vertices
 	struct s_vertices	*next;
 }						t_vertices;
 
+typedef struct			s_ants
+{
+	struct s_path	*path;
+	int		in_end;
+
+}	t_ants;
+
 typedef struct			s_data
 {
 	int					ants;
@@ -101,8 +108,8 @@ typedef struct			s_data
 	struct s_path		*path;	// result of the bfs !
 	struct s_group		*groups;
 	struct s_agroups	*agroups;
-	struct s_group		*result;
-	struct s_group		*array_result;
+	struct s_ants		*moving_ant; // To be free.
+	struct s_group		**array_result;
 	struct s_agroups	*result;
 }						t_data;
 
