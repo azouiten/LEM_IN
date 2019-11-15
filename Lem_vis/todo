@@ -1,0 +1,3 @@
+//check for duplicate edge before adding a new one.
+//don't draw room/ants if they're out of boundaries.
+//check for possible optimization for navigation.

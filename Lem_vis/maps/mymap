@@ -1,0 +1,35 @@
+10
+##start
+a 0 0
+b 0 1
+c 0 2
+d 1 0
+e 1 1
+f 1 2
+g 2 0
+h 2 1
+##end
+i 2 2
+a-b
+a-c
+a-d
+b-c
+b-d
+c-h
+e-h
+f-a
+d-h
+h-i
+
+L1-c
+L1-h L2-c
+L1-i L2-h L3-c
+L2-i L3-h L4-c
+L3-i L4-h L5-c
+L4-i L5-h L6-c
+L5-i L6-h L7-c
+L6-i L7-h L8-c
+L7-i L8-h L9-c
+L8-i L9-h L10-c
+L9-i L10-h
+L10-i

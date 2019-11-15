@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:29:07 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/14 12:51:06 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/15 17:41:50 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ int					ft_get_input(t_data *data)
 			return (ft_error_return(&temp));
 		if (!(input->next = ft_input_node(temp)))
 			return (ft_error_return(&temp));
+		input = input->next;
+	}
+	input = data->input_head;
+	while (input)
+	{
+		ft_printf("%s\n", input->line);
 		input = input->next;
 	}
 	ft_strdel(&temp);
