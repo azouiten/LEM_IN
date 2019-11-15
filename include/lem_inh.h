@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/14 15:04:16 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/15 11:23:19 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef	struct			s_v_buffer
 typedef	struct			s_path
 {
 	struct s_vertices	*vertex;
+	int			status;  // Must initialize.
 	struct s_edges		*edg;
 	struct s_path		*next;
 }						t_path;
@@ -100,6 +101,7 @@ typedef struct			s_data
 	struct s_group		*groups;
 	struct s_agroups	*agroups;
 	struct s_group		*result;
+	struct s_group		*array_result;
 }						t_data;
 
 int						ft_free_data(t_data *data);
@@ -120,6 +122,7 @@ void					ft_parse(t_data *data);
 int						ft_get_input(t_data *data);
 t_queue					*ft_add_queue(t_data *data, t_vertices 
 						**vertex, t_edges **edg, t_path **pth); // new
+int					ft_print_moves(t_data *data);
 void					ft_unvisit(t_v_buffer *visited);
 // anas's stuff
 

@@ -6,7 +6,7 @@
 /*   By: azouiten <azouiten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/15 10:25:55 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/15 11:28:26 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,6 +318,8 @@ int		main(void)
 
 	ft_parse(&data);
 	ft_bfs(&data);
+	data.result = data.groups;
+	ft_print_moves(&data);
 //	ft_free_data(&data);
 	return (0);
 }
