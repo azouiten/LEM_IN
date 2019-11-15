@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/15 17:10:25 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/15 18:56:10 by ohachim          ###   ########.fr       */
 /*   Updated: 2019/11/15 11:16:17 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -31,6 +31,7 @@ typedef	struct			s_agroups
 typedef	struct			s_group
 {
 	struct s_path		*path;
+	int	load;
 	int					size;
 	struct s_group		*next;
 }						t_group;

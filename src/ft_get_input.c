@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 17:29:07 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/15 17:41:50 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/15 18:45:19 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int					ft_get_input(t_data *data)
 		return (ft_error_return(&temp));
 	if (!(input = ft_input_node(temp)))
 		return (ft_error_return(&temp));
+	ft_printf("%s\n", input->line);
 	data->input_head = input;
 	while ((ret = ft_skip_line(&temp, 0)))
 	{
@@ -56,12 +57,7 @@ int					ft_get_input(t_data *data)
 			return (ft_error_return(&temp));
 		if (!(input->next = ft_input_node(temp)))
 			return (ft_error_return(&temp));
-		input = input->next;
-	}
-	input = data->input_head;
-	while (input)
-	{
-		ft_printf("%s\n", input->line);
+		ft_printf("%s\n", input->next->line);
 		input = input->next;
 	}
 	ft_strdel(&temp);

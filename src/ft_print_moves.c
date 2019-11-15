@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 10:53:21 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/15 18:42:21 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/15 18:55:37 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,13 @@ static int	ft_find_ant_path(t_data *data, int ant_index) // Will be improved.
 	{
 		if (data->array_result[gn]->path->status == 0)
 		{
-			data->moving_ant[ant_index].path = data->array_result[gn]->path;
+			if (data->array_result[gn]->load != 0)
+			{
+				data->moving_ant[ant_index].path = data->array_result[gn]->path;
+				data->array_result[gn]->load--;
+			}
+			else
+				break ;
 			return (1);
 		}
 		gn++;
