@@ -6,7 +6,7 @@
 /*   By: azouiten <azouiten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/15 10:25:55 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/15 11:30:37 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static	void	ft_init_queue(t_data *data)
 	data->queue->item = data->start;
 	data->queue->last = data->queue;
 	data->queue->access = 0;
-	data->queue->acc_ptr = NULL;
 	data->queue->next = NULL;
 	data->start->visited = 1; // end quit.
 }
@@ -50,13 +49,9 @@ static	int		ft_check_last(t_data *data)
 	{
 		if (edg->connection->visited == 1 || edg->flow == 1 || (data->queue->item->flow == 1 && data->queue->access == 0 && edg->edge_end->flow == 0))
 		{
-			//ft_printf("[%s][%d]_[%s][%d]- out\n", data->queue->item->name
-		//,data->queue->item->visited, edg->connection->name, edg->connection->visited);
 			edg = edg->next;
 			continue ;
 		}
-		//ft_printf("[%s][%d]_[%s][%d]- in\n", data->queue->item->name
-		//,data->queue->item->visited, edg->connection->name, edg->connection->visited);
 		data->queue->last->next = ft_add_queue(data, &edg->connection,
 				&edg, &data->queue->path);
 		data->queue->last = data->queue->last->next;
@@ -169,28 +164,12 @@ void			ft_collect_paths(t_data *data)
 		}
 		group = group->next;
 	}
-	group = data->groups;
-	ft_printf("new group -----------------\n");
-	/*ft_printf("ants = %d\n", data->ants);
-	while (group)
-	{
-		ft_printf("%d\n", group->size);
-		while (group->path)
-		{
-			ft_printf("{%s}<-", group->path->vertex->name);
-			group->path = group->path->next;
-		}
-		write (1, "\n", 1);
-		group = group->next;
-	}*/
 }
 
 void			ft_add_to_agroup(t_data *data)
 {
 	t_agroups	*all_groups;
 	t_group		*group;
-	//t_agroups	*tmp_grp;
-//	t_path		*path;
 
 	if (!(all_groups = (t_agroups*)malloc(sizeof(t_agroups))))
 		ft_exit(data);
@@ -206,39 +185,15 @@ void			ft_add_to_agroup(t_data *data)
 	}
 	all_groups->score = (((all_groups->n_vrtx + data->ants) / all_groups->n_pths)
 			+ (all_groups->n_vrtx + data->ants) % all_groups->n_pths) - 1;
-	ft_printf("n_vrtx = %d\nscore = %d\n", all_groups->n_vrtx, all_groups->score);
 	all_groups->next = data->agroups;
 	data->agroups = all_groups;
 	data->groups = NULL;
-/*	tmp_grp = data->agroups;
-	ft_printf("new agroup >> \n");
-	while(tmp_grp)
-	{
-		group = tmp_grp->group;
-		ft_putstr("looping\n");
-		while (group)
-		{
-			path = group->path;
-			ft_putstr("maybe no groups?\n");
-			while(path)
-			{
-				write(1, ">> - ", 4);
-				ft_printf("{%s}->", path->vertex->name);
-				path = path->next;
-			}
-			ft_printf("\n");
-			group = group->next;
-		}
-		tmp_grp = tmp_grp->next;
-	}*/
 }
 
 void			ft_bfs(t_data *data)
 {
 	int	i;
 	t_path *path;
-	t_group	*group;
-	t_agroups	*tmp_grp;
 	int	c;
 
 	c = 0;
@@ -262,36 +217,24 @@ void			ft_bfs(t_data *data)
 		ft_exit(data);
 	else if ((data->agroups && !data->agroups->next) || (data->agroups->next &&
 			data->agroups->score <= data->agroups->next->score))
-		ft_swing_paths(data, data->agroups->group);	
+		data->result = ft_swing_paths(data, data->agroups);	
 	else if (data->agroups->next && data->agroups->score > data->agroups->next->score)
-		ft_swing_paths(data, data->agroups->next->group);
-	tmp_grp = data->agroups;
-	while(tmp_grp)
-	{
-		group = tmp_grp->group;
-		while (group)
-		{
-			path = group->path;
-			while(path)
-			{
-				//ft_printf("{%s}->", path->vertex->name);
-				path = path->next;
-			}
-			//ft_printf("\n");
-			group = group->next;
-		}
-		tmp_grp = tmp_grp->next;
-	}
+		data->result = ft_swing_paths(data, data->agroups->next);
 }
 
-void	ft_swing_paths(t_data *data, t_group *group)
+//void	ft_free_path()
+//{}
+
+t_agroups	*ft_swing_paths(t_data *data, t_agroups *agroup)
 {
 	t_path	*path_rep;
 	t_path	*tmp;
 	t_path	*pth;
+	t_group	*group;
 
 	path_rep = NULL;
 	tmp = NULL;
+	group = agroup->group;
 	while (group)
 	{
 		pth = group->path;
@@ -310,6 +253,7 @@ void	ft_swing_paths(t_data *data, t_group *group)
 		group->path = path_rep;	
 		group = group->next;
 	}
+	return (agroup);
 }
 
 int		main(void)
@@ -318,8 +262,7 @@ int		main(void)
 
 	ft_parse(&data);
 	ft_bfs(&data);
-//	ft_free_data(&data);
+	ft_free_data(&data);
 	return (0);
 }
 // work on optimizing the groups from within!
-// houston we have a problem! .. the four links problem! better fix it even if noone is ever gonna find it! well they may find it with a small map! 
