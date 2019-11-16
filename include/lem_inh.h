@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/16 10:17:06 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/16 16:54:27 by ohachim          ###   ########.fr       */
 /*   Updated: 2019/11/15 11:16:17 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -133,7 +133,7 @@ void					ft_parse(t_data *data);
 int						ft_get_input(t_data *data);
 t_queue					*ft_add_queue(t_data *data, t_vertices 
 						**vertex, t_edges **edg, t_path **pth); // new
-int					ft_print_moves(t_data *data);
+int					ft_print_moves(t_data *data, int gn, int si, int arrived);
 void					ft_unvisit(t_v_buffer *visited);
 // anas's stuff
 
