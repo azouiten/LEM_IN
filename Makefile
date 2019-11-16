@@ -6,7 +6,7 @@
 #    By: ohachim <ohachim@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/24 13:47:22 by ohachim           #+#    #+#              #
-#    Updated: 2019/11/16 10:05:11 by azouiten         ###   ########.fr        #
+#    Updated: 2019/11/16 13:42:56 by ohachim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ NAME = test
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =
+#add flags
 
 .PHONY: all, clean, fclean, re
 

@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 10:53:21 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/15 18:55:37 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/16 16:14:59 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,8 @@ static int	ft_find_ant_path(t_data *data, int ant_index) // Will be improved.
 			{
 				data->moving_ant[ant_index].path = data->array_result[gn]->path;
 				data->array_result[gn]->load--;
+				return (1);
 			}
-			else
-				break ;
-			return (1);
 		}
 		gn++;
 	}
@@ -66,10 +64,12 @@ int	ft_print_moves(t_data *data)
 {
 	t_group	*temp;
 	int	gn;
-	int	ant_index;
-	int	arrived;
 	int	si;
+	int	arrived;
+	int	ant_index;
+	int	inst;
 
+	inst = 0;
 	si = 0;
 	gn = 0;
 	temp = data->result->group;
@@ -82,8 +82,9 @@ int	ft_print_moves(t_data *data)
 		temp = temp->next;
 		gn++;
 	}
-	ft_qsort_group(data, 0, data->result->n_pths - 1);
 	arrived = 0;
+	ft_qsort_group(data, 0, data->result->n_pths - 1);
+	ft_printf("\n");
 	while (arrived != data->ants)
 	{
 		ant_index = 0;
@@ -91,6 +92,8 @@ int	ft_print_moves(t_data *data)
 		si = 0;
 		while (ant_index < data->ants)
 		{
+			if (data->moving_ant[ant_index].in_end == 1 && (ant_index += 1))
+				continue ;
 			if (data->moving_ant[ant_index].path == 0)
 			{
 				if (!(ft_find_ant_path(data, ant_index)))
@@ -109,11 +112,26 @@ int	ft_print_moves(t_data *data)
 				ft_printf("L%d-%s", ant_index + 1, data->moving_ant[ant_index].path->vertex->name);
 				if (ft_strcmp(data->moving_ant[ant_index].path->vertex->name, data->end->name))
 					data->moving_ant[ant_index].path->status = 1;
-				data->moving_ant[ant_index].path = data->moving_ant[ant_index].path->next;
+				if (data->moving_ant[ant_index].path->next != NULL)
+					data->moving_ant[ant_index].path = data->moving_ant[ant_index].path->next;
 			}
 			ant_index++;
 		}
+		inst++;
 		ft_printf("\n");
 	}
+/*	gn = 0;
+        while (data->array_result[gn])
+        {
+                ft_printf("---%d---%d---", data->array_result[gn]->load, data->array_result[gn]->size);
+                ft_printf("[%s]", data->start->name);
+                while (data->array_result[gn]->path)
+                {
+                        ft_printf("[%s]", data->array_result[gn]->path->vertex->name);
+                        data->array_result[gn]->path = data->array_result[gn]->path->next;
+                }
+                ft_printf("\n");
+                gn++;
+        }*/
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: azouiten <azouiten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/16 13:18:43 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/16 16:45:39 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void			ft_add_path(t_data *data, t_vertices *vertex)
 	path->next = NULL;
 	group->path = path;
 	group->size = 1;
+	group->load = 0;
 	group->next = data->groups;
 	data->groups = group;
 }
@@ -183,8 +184,8 @@ void			ft_add_to_agroup(t_data *data)
 		all_groups->n_vrtx += group->size;
 		group = group->next;
 	}
-	all_groups->score = (((all_groups->n_vrtx + data->ants) / all_groups->n_pths)
-			+ (all_groups->n_vrtx + data->ants) % all_groups->n_pths) - 1;
+	all_groups->score = ((all_groups->n_vrtx + data->ants) % all_groups->n_pths == 0) ?
+	(all_groups->n_vrtx + data->ants) / all_groups->n_pths - 1 : (all_groups->n_vrtx + data->ants) / all_groups->n_pths;
 	all_groups->next = data->agroups;
 	data->agroups = all_groups;
 	data->groups = NULL;
@@ -208,11 +209,11 @@ void			ft_load_paths(t_data *data)
 	tmp_grp = data->result->group;
 	while (tmp_grp)
 	{
-		tmp_grp->load = max_size - tmp_grp->size - 1;
-		ants -= max_size - tmp_grp->size - 1;
+		tmp_grp->load = max_size - tmp_grp->size;
+		ants -= tmp_grp->load;
 		tmp_grp = tmp_grp->next;
 	}
-	ants = ants / data->result->n_pths + ants % data->result->n_pths;
+	ants = (ants % data->result->n_pths == 0) ? ants / data->result->n_pths : ants / data->result->n_pths + 1;
 	tmp_grp = data->result->group;
 	while (tmp_grp)
 	{
@@ -257,7 +258,6 @@ void			ft_bfs(t_data *data)
 	group = data->result->group;
 	while (group)
 	{
-		ft_printf("size = [%d] load = [%d]\n", group->size, group->load);
 		group = group->next;
 	}
 }
