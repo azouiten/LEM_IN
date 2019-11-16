@@ -6,8 +6,7 @@
 /*   By: azouiten <azouiten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/15 11:52:34 by ohachim          ###   ########.fr       */
-/*   Updated: 2019/11/15 11:30:37 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/16 13:18:43 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +190,38 @@ void			ft_add_to_agroup(t_data *data)
 	data->groups = NULL;
 }
 
+void			ft_load_paths(t_data *data)
+{
+	int		max_size;
+	t_group	*tmp_grp;
+	int		ants;
+
+	ants= data->ants;
+	max_size = data->result->group->size;
+	tmp_grp = data->result->group;
+	while (tmp_grp)
+	{
+		if (tmp_grp->size > max_size)
+			max_size = tmp_grp->size;
+		tmp_grp = tmp_grp->next;
+	}
+	tmp_grp = data->result->group;
+	while (tmp_grp)
+	{
+		tmp_grp->load = max_size - tmp_grp->size - 1;
+		ants -= max_size - tmp_grp->size - 1;
+		tmp_grp = tmp_grp->next;
+	}
+	ants = ants / data->result->n_pths + ants % data->result->n_pths;
+	tmp_grp = data->result->group;
+	while (tmp_grp)
+	{
+		tmp_grp->load += ants;
+		tmp_grp = tmp_grp->next;
+	}
+
+}
+
 void			ft_bfs(t_data *data)
 {
 	int	i;
@@ -221,10 +252,28 @@ void			ft_bfs(t_data *data)
 		data->result = ft_swing_paths(data, data->agroups);	
 	else if (data->agroups->next && data->agroups->score > data->agroups->next->score)
 		data->result = ft_swing_paths(data, data->agroups->next);
+	ft_load_paths(data);
+	t_group	*group;
+	group = data->result->group;
+	while (group)
+	{
+		ft_printf("size = [%d] load = [%d]\n", group->size, group->load);
+		group = group->next;
+	}
 }
 
-//void	ft_free_path()
-//{}
+void	ft_free_path(t_path *path)
+{
+	t_path *tmp;
+
+	tmp = NULL;
+	while (path)
+	{
+		tmp = path;
+		path = path->next;
+		ft_memdel((void**)&tmp);
+	}
+}
 
 t_agroups	*ft_swing_paths(t_data *data, t_agroups *agroup)
 {
@@ -250,7 +299,7 @@ t_agroups	*ft_swing_paths(t_data *data, t_agroups *agroup)
 			tmp = path_rep;
 			group->path = group->path->next;
 		}
-		//ft_free_path(pth);
+		ft_free_path(pth);
 		group->path = path_rep;	
 		group = group->next;
 	}
@@ -264,7 +313,6 @@ int		main(void)
 	ft_parse(&data);
 	ft_bfs(&data);
 	ft_print_moves(&data);
-//	ft_free_data(&data);
 	ft_free_data(&data);
 	return (0);
 }
