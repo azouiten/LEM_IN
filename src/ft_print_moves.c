@@ -6,7 +6,8 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 10:53:21 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/16 16:58:14 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/18 13:39:32 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/17 16:36:59 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +64,17 @@ static int	ft_find_ant_path(t_data *data, int ant_index) // Will be improved.
 int	ft_print_moves(t_data *data, int gn, int si, int arrived)
 {
 	t_group	*temp;
+	t_group	*grp;
 	int	ant_index;
 
+	grp = data->result->group;
+	while (grp)
+	{
+		//ft_printf("{%d}---{%d}\n", grp->load, grp->size);
+		grp = grp->next; 
+	}
+	si = 0;
+	gn = 0;
 	temp = data->result->group;
 	if (!(data->array_result = (t_group**)malloc(sizeof(t_group*) * data->result->n_pths + 1)) || !ft_init_ants(data))
 		return (0);
@@ -110,6 +120,12 @@ int	ft_print_moves(t_data *data, int gn, int si, int arrived)
 			ant_index++;
 		}
 		ft_printf("\n");
+	}
+	grp = data->result->group;
+	while (grp)
+	{
+		//ft_printf("{%d}---{%d}\n", grp->load, grp->size);
+		grp = grp->next; 
 	}
 	return (0);
 }
