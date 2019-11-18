@@ -6,7 +6,7 @@
 #    By: ohachim <ohachim@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/24 13:47:22 by ohachim           #+#    #+#              #
-#    Updated: 2019/11/16 13:42:56 by ohachim          ###   ########.fr        #
+#    Updated: 2019/11/18 17:00:28 by ohachim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,9 @@ SRC_NAME = ft_get_input.c \
 	   ft_add_queue.c \
 	   ft_unvisit.c \
 	   ft_print_moves.c \
-	   ft_qsort_group.c
+	   ft_qsort_group.c \
+	   ft_sort_result.c \
+	   ft_list_to_array.c
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 

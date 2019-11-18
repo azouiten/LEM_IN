@@ -8,7 +8,7 @@ printf "${GREEN}==================\n%s\n==================${NC}\n" "BIG"
 while [ $X -le $COUNT ]
 do
     printf "${YELLOW}TRY %d${NC}\n" $X
-    ./generator --big | ./lem-in > test.txt
+    ./generator --big | ./test > test.txt
 	printf "%-12s%d\n" "ANTS:" $(head -n 1 test.txt)
 	printf "%-12s%d\n" "ROOMS:" $(grep "[0-99999][[:space:]][0-99999]" test.txt | wc -l)
     printf "%-12s" "ANSWER:"

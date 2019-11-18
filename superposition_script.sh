@@ -9,7 +9,7 @@ while [ $X -le $COUNT ]
 do
     printf "${YELLOW}TRY %d${NC}\n" $X
 	start=$(date +%s)
-	./generator --big-superposition | ./lem-in > test.txt
+	./generator --big-superposition | ./test > test.txt
 	printf "%-12s%d\n" "ANTS:" $(head -n 1 test.txt)
 	printf "%-12s%d\n" "ROOMS:" $(grep "[0-99999][[:space:]][0-99999]" test.txt | wc -l)
 	end=$(date +%s)

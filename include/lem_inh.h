@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/17 18:53:19 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/18 17:00:10 by ohachim          ###   ########.fr       */
 /*   Updated: 2019/11/15 11:16:17 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -115,6 +115,8 @@ typedef struct			s_data
 	struct s_agroups	*result;
 }						t_data;
 
+int      ft_list_to_array(t_data *data, int gn);
+int     			ft_sort_result(t_data *data);
 int	ft_qsort_group(t_data *data, int start, int end);
 int						ft_free_data(t_data *data);
 int						ft_create_data(t_data *data);

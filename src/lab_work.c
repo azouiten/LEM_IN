@@ -6,7 +6,7 @@
 /*   By: azouiten <azouiten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/18 13:20:22 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/18 17:23:09 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void			ft_add_path(t_data *data, t_vertices *vertex)
 	path->next = NULL;
 	group->path = path;
 	group->size = 1;
-	group->load = 0;
+	group->load = 1000;
 	group->next = data->groups;
 	data->groups = group;
 }
@@ -244,34 +244,12 @@ t_group			*ft_add_sort_g(t_data * data, t_group *ming, t_group **group)
 	return (grps);
 }
 
-void			ft_sort_result(t_data *data)
+/*void			ft_sort_result(t_data *data)
 {
-	t_group	*grp;
-	t_group	*grp2;
-	t_group	*min_g;
-	t_group	*group;
-
-	group = NULL;
-	grp = data->result->group;
-	while (grp)
-	{
-		grp2 = data->result->group;
-		min_g = data->result->group;
-		while (grp2)
-		{
-			if (min_g->size < grp2->size)
-				min_g = grp2;
-			ft_printf("in and looping\n");
-			grp2 = grp2->next;
-		}
-		group = ft_add_sort_g(data, min_g, &group);
-		grp = grp->next;
-		ft_printf("out and clear\n");
-	}
-	//ft_free_grp(data->result->group);
-	data->result->group = group;
-	ft_printf("outside\n");
-}
+	change to array
+	qsort
+	change to list
+}*/
 
 void			ft_bfs(t_data *data)
 {
@@ -303,7 +281,8 @@ void			ft_bfs(t_data *data)
 		data->result = ft_swing_paths(data, data->agroups);	
 	else if (data->agroups->next && data->agroups->score > data->agroups->next->score)
 		data->result = ft_swing_paths(data, data->agroups->next);
-	//ft_sort_result(data);
+	ft_list_to_array(data, 0);
+	ft_sort_result(data);
 	ft_load_paths(data);
 }
 
