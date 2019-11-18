@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/18 17:00:10 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/18 17:42:44 by ohachim          ###   ########.fr       */
 /*   Updated: 2019/11/15 11:16:17 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -91,6 +91,7 @@ typedef struct			s_vertices
 typedef struct			s_ants
 {
 	struct s_path	*path;
+
 	int		in_end;
 
 }	t_ants;
