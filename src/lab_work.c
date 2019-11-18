@@ -6,7 +6,7 @@
 /*   By: azouiten <azouiten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/16 16:53:57 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/18 13:20:22 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ void			ft_add_to_agroup(t_data *data)
 		group = group->next;
 	}
 	all_groups->score = ((all_groups->n_vrtx + data->ants) % all_groups->n_pths == 0) ?
-	(all_groups->n_vrtx + data->ants) / all_groups->n_pths - 1 : (all_groups->n_vrtx + data->ants) / all_groups->n_pths;
+	((all_groups->n_vrtx + data->ants) / all_groups->n_pths) - 1 : ((all_groups->n_vrtx + data->ants) / all_groups->n_pths);
 	all_groups->next = data->agroups;
 	data->agroups = all_groups;
 	data->groups = NULL;
@@ -197,7 +197,7 @@ void			ft_load_paths(t_data *data)
 	t_group	*tmp_grp;
 	int		ants;
 
-	ants= data->ants;
+	ants = data->ants;
 	max_size = data->result->group->size;
 	tmp_grp = data->result->group;
 	while (tmp_grp)
@@ -209,18 +209,68 @@ void			ft_load_paths(t_data *data)
 	tmp_grp = data->result->group;
 	while (tmp_grp)
 	{
-		tmp_grp->load = max_size - tmp_grp->size;
-		ants -= tmp_grp->load;
+		tmp_grp->load = max_size - tmp_grp->size + 1;
+		if (ants >= 0)
+			ants -= tmp_grp->load;
 		tmp_grp = tmp_grp->next;
 	}
 	ants = (ants % data->result->n_pths == 0) ? ants / data->result->n_pths : ants / data->result->n_pths + 1;
 	tmp_grp = data->result->group;
-	while (tmp_grp)
+	while (ants && tmp_grp)
 	{
 		tmp_grp->load += ants;
 		tmp_grp = tmp_grp->next;
 	}
+}
 
+t_group			*ft_add_sort_g(t_data * data, t_group *ming, t_group **group)
+{
+	t_group	*grps;
+	t_group	*grp;
+
+	grps = *group;
+	ft_printf("test");
+	if (!(grp = (t_group*)malloc(sizeof(t_path))))
+		ft_exit(data);
+	grp->path = ming->path;
+	grp->load = 0;
+	grp->size = ming->size;
+	grp->next = NULL;
+	if (!group)
+		return (grp);
+	while ((*group)->next);
+	ft_printf("\n");
+	(*group)->next = grp;
+	return (grps);
+}
+
+void			ft_sort_result(t_data *data)
+{
+	t_group	*grp;
+	t_group	*grp2;
+	t_group	*min_g;
+	t_group	*group;
+
+	group = NULL;
+	grp = data->result->group;
+	while (grp)
+	{
+		grp2 = data->result->group;
+		min_g = data->result->group;
+		while (grp2)
+		{
+			if (min_g->size < grp2->size)
+				min_g = grp2;
+			ft_printf("in and looping\n");
+			grp2 = grp2->next;
+		}
+		group = ft_add_sort_g(data, min_g, &group);
+		grp = grp->next;
+		ft_printf("out and clear\n");
+	}
+	//ft_free_grp(data->result->group);
+	data->result->group = group;
+	ft_printf("outside\n");
 }
 
 void			ft_bfs(t_data *data)
@@ -232,7 +282,7 @@ void			ft_bfs(t_data *data)
 	c = 0;
 	i = 0;
 	while (!data->agroups || !data->agroups->next || data->agroups->score <=
-			data->agroups->next->score)// data->agroups->score < data->agroups->next->score!
+			data->agroups->next->score)
 	{
 		i++;
 		ft_init_queue(data);
@@ -253,13 +303,8 @@ void			ft_bfs(t_data *data)
 		data->result = ft_swing_paths(data, data->agroups);	
 	else if (data->agroups->next && data->agroups->score > data->agroups->next->score)
 		data->result = ft_swing_paths(data, data->agroups->next);
+	//ft_sort_result(data);
 	ft_load_paths(data);
-	t_group	*group;
-	group = data->result->group;
-	while (group)
-	{
-		group = group->next;
-	}
 }
 
 void	ft_free_path(t_path *path)

@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 10:53:21 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/16 16:54:49 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/17 16:36:59 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,15 @@ static int	ft_find_ant_path(t_data *data, int ant_index) // Will be improved.
 int	ft_print_moves(t_data *data, int gn, int si, int arrived)
 {
 	t_group	*temp;
+	t_group	*grp;
 	int	ant_index;
 
+	grp = data->result->group;
+	while (grp)
+	{
+		//ft_printf("{%d}---{%d}\n", grp->load, grp->size);
+		grp = grp->next; 
+	}
 	si = 0;
 	gn = 0;
 	temp = data->result->group;
@@ -113,6 +120,12 @@ int	ft_print_moves(t_data *data, int gn, int si, int arrived)
 			ant_index++;
 		}
 		ft_printf("\n");
+	}
+	grp = data->result->group;
+	while (grp)
+	{
+		//ft_printf("{%d}---{%d}\n", grp->load, grp->size);
+		grp = grp->next; 
 	}
 	return (0);
 }
