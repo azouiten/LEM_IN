@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 10:53:21 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/16 16:54:49 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/16 16:58:14 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int	ft_print_moves(t_data *data, int gn, int si, int arrived)
 	t_group	*temp;
 	int	ant_index;
 
-	si = 0;
-	gn = 0;
 	temp = data->result->group;
 	if (!(data->array_result = (t_group**)malloc(sizeof(t_group*) * data->result->n_pths + 1)) || !ft_init_ants(data))
 		return (0);
@@ -77,7 +75,6 @@ int	ft_print_moves(t_data *data, int gn, int si, int arrived)
 		temp = temp->next;
 		gn++;
 	}
-	arrived = 0;
 	ft_qsort_group(data, 0, data->result->n_pths - 1);
 	ft_printf("\n");
 	while (arrived != data->ants)
