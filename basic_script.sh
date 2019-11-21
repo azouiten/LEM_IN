@@ -19,6 +19,7 @@ rm test.txt
 
 printf "${GREEN}==================\n%s\n==================${NC}\n" "TEN"
 ./generator --flow-ten | ./test > test.txt
+cat test.txt > maps/mapten
 printf "%-12s%d\n" "ANTS:" $(head -n 1 test.txt)
 printf "%-12s%d\n" "ROOMS:" $(grep "[0-99999][[:space:]][0-99999]" test.txt | wc -l)
 printf "%-12s" "ANSWER:"
@@ -35,6 +36,7 @@ rm test.txt
 
 printf "${GREEN}==================\n%s\n==================${NC}\n" "THOUSAND"
 ./generator --flow-thousand | ./test > test.txt
+cat test.txt > maps/mapthousand
 printf "%-12s%d\n" "ANTS:" $(head -n 1 test.txt)
 printf "%-12s%d\n" "ROOMS:" $(grep "[0-99999][[:space:]][0-99999]" test.txt | wc -l)
 printf "%-12s" "ANSWER:"
@@ -51,6 +53,7 @@ rm test.txt
 
 printf "${GREEN}==================\n%s\n==================${NC}\n" "BIG"
 ./generator --big | ./test > test.txt
+cat test.txt > maps/mapbig
 printf "%-12s%d\n" "ANTS:" $(head -n 1 test.txt)
 printf "%-12s%d\n" "ROOMS:" $(grep "[0-99999][[:space:]][0-99999]" test.txt | wc -l)
 printf "%-12s" "ANSWER:"
@@ -67,6 +70,7 @@ rm test.txt
 
 printf "${GREEN}==================\n%s\n==================${NC}\n" "BIG-SUPERPOSITION"
 ./generator --big-superposition | ./test > test.txt
+cat test.txt > maps/mapsuper 
 printf "%-12s%d\n" "ANTS:" $(head -n 1 test.txt)
 printf "%-12s%d\n" "ROOMS:" $(grep "[0-99999][[:space:]][0-99999]" test.txt | wc -l)
 printf "%-12s" "ANSWER:"

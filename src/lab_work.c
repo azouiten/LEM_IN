@@ -6,7 +6,7 @@
 /*   By: azouiten <azouiten@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/18 17:23:09 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/21 17:11:00 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void			ft_add_path(t_data *data, t_vertices *vertex)
 	path->next = NULL;
 	group->path = path;
 	group->size = 1;
-	group->load = 1000;
+	group->load = 0;
 	group->next = data->groups;
 	data->groups = group;
 }
@@ -207,18 +207,20 @@ void			ft_load_paths(t_data *data)
 		tmp_grp = tmp_grp->next;
 	}
 	tmp_grp = data->result->group;
-	while (tmp_grp)
+	while (tmp_grp && ants > 0)
 	{
-		tmp_grp->load = max_size - tmp_grp->size + 1;
-		if (ants >= 0)
+		tmp_grp->load = (ants - (max_size - tmp_grp->size + 1)) < 0 ? ants : max_size - tmp_grp->size + 1;
 			ants -= tmp_grp->load;
+		ft_printf("%d--\n", tmp_grp->load);
 		tmp_grp = tmp_grp->next;
 	}
+	ft_printf("%d-+\n", ants);
 	ants = (ants % data->result->n_pths == 0) ? ants / data->result->n_pths : ants / data->result->n_pths + 1;
 	tmp_grp = data->result->group;
 	while (ants && tmp_grp)
 	{
-		tmp_grp->load += ants;
+		if (tmp_grp->load)
+			tmp_grp->load += ants;
 		tmp_grp = tmp_grp->next;
 	}
 }
@@ -244,12 +246,65 @@ t_group			*ft_add_sort_g(t_data * data, t_group *ming, t_group **group)
 	return (grps);
 }
 
-/*void			ft_sort_result(t_data *data)
+int				ft_score(t_data *data, t_group *group)
 {
-	change to array
-	qsort
-	change to list
-}*/
+	t_group	*grp;
+	int		n_vrtx;
+	int		n_pths;
+
+	n_vrtx = 0;
+	n_pths = 0;
+	grp = data->result->group;
+	while (grp != group)
+	{
+		n_pths++;
+		n_vrtx += grp->size - 1;
+		grp = grp->next;
+	}
+	//ft_printf("[%d][%d]\n", n_pths, n_vrtx);
+	ft_printf ("%d\n", ((n_vrtx + data->ants) % n_pths == 0) ?
+	((n_vrtx + data->ants) / n_pths) : ((n_vrtx + data->ants) / n_pths) + 1);
+	return (((n_vrtx + data->ants) % n_pths == 0) ?
+	((n_vrtx + data->ants) / n_pths) : ((n_vrtx + data->ants) / n_pths) + 1);
+}
+
+void			ft_free_rest(t_group **group)
+{
+	t_group	*grp;
+	t_group	*tmp;
+
+	grp = *group;
+	while (grp)
+	{
+		tmp = grp;
+		grp = grp->next;
+		ft_memdel((void**)&tmp);
+	}
+	*group = NULL;
+}
+
+void			ft_rescore(t_data *data)
+{
+	t_group	*tmp;
+	int		result;
+	int		resultmp;
+	
+	result = -1;
+	tmp = data->result->group;
+	while (tmp)
+	{
+		ft_printf("hitler\n");
+		if (result < (resultmp = ft_score(data, tmp->next)) && result != - 1)
+		{
+			ft_printf("out & clear\n");
+			ft_free_rest(&tmp->next);
+			break ;
+		}
+		else
+			result = resultmp;
+		tmp = tmp->next;
+	}
+}
 
 void			ft_bfs(t_data *data)
 {
@@ -283,6 +338,7 @@ void			ft_bfs(t_data *data)
 		data->result = ft_swing_paths(data, data->agroups->next);
 	ft_list_to_array(data, 0);
 	ft_sort_result(data);
+	//ft_rescore(data);
 	ft_load_paths(data);
 }
 

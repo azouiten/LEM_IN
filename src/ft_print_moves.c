@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 10:53:21 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/18 17:43:50 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/19 19:06:36 by azouiten         ###   ########.fr       */
 /*   Updated: 2019/11/17 16:36:59 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -65,6 +65,13 @@ int	ft_print_moves(t_data *data, int gn, int si, int arrived)
 {
 	int	ant_index;
 	
+/*	t_group	*grp;
+	grp = data->result->group;
+	while (grp)
+	{
+		ft_printf("[%d]\n", grp->load);
+		grp = grp->next;
+	}*/
 	if (!(ft_init_ants(data)))
 		return (0);
 	ft_printf("\n");
@@ -102,5 +109,12 @@ int	ft_print_moves(t_data *data, int gn, int si, int arrived)
 		}
 		ft_printf("\n");
 	}
+	/*ft_printf("+++++++++++++++++++++++++++\n");
+	grp = data->result->group;
+	while (grp)
+	{
+		ft_printf("[%d]\n", grp->load);
+		grp = grp->next;
+	}*/
 	return (0);
 }
