@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lab_work.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azouiten <azouiten@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/21 17:11:00 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/24 03:58:21 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,10 +211,8 @@ void			ft_load_paths(t_data *data)
 	{
 		tmp_grp->load = (ants - (max_size - tmp_grp->size + 1)) < 0 ? ants : max_size - tmp_grp->size + 1;
 			ants -= tmp_grp->load;
-		ft_printf("%d--\n", tmp_grp->load);
 		tmp_grp = tmp_grp->next;
 	}
-	ft_printf("%d-+\n", ants);
 	ants = (ants % data->result->n_pths == 0) ? ants / data->result->n_pths : ants / data->result->n_pths + 1;
 	tmp_grp = data->result->group;
 	while (ants && tmp_grp)
@@ -231,7 +229,6 @@ t_group			*ft_add_sort_g(t_data * data, t_group *ming, t_group **group)
 	t_group	*grp;
 
 	grps = *group;
-	ft_printf("test");
 	if (!(grp = (t_group*)malloc(sizeof(t_path))))
 		ft_exit(data);
 	grp->path = ming->path;
@@ -241,7 +238,6 @@ t_group			*ft_add_sort_g(t_data * data, t_group *ming, t_group **group)
 	if (!group)
 		return (grp);
 	while ((*group)->next);
-	ft_printf("\n");
 	(*group)->next = grp;
 	return (grps);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_append_vertex.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:42:13 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/13 16:59:32 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:58:51 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int		ft_find_duplicat(t_data *data, int hash, char *line)
 }
 
 static int		ft_first_node(t_data *data, int hash, char *line,
-		int vertex_position)
+				int vertex_position)
 {
 	while (data->hash_table[hash])
 		data->hash_table[hash] = data->hash_table[hash]->next;
@@ -60,7 +60,7 @@ static int		ft_first_node(t_data *data, int hash, char *line,
 }
 
 int				ft_append_vertex(t_data *data, int hash, char *line,
-		int vertex_position)
+				int vertex_position)
 {
 	t_vertices	*current;
 
@@ -77,11 +77,11 @@ int				ft_append_vertex(t_data *data, int hash, char *line,
 			|| !(current->next->name = ft_extract_name(line)))
 			return (0);
 		current->next->visited = 0;
-		current->next->flow = 0; // double check with thatks. potatto
+		current->next->flow = 0;
 		current->next->hash = hash;
 		current->next->next = NULL;
 		current->next->edges = NULL;
-		if (vertex_position == 0) // gotta check for double start/end.
+		if (vertex_position == 0)
 			data->start = current->next;
 		else if (vertex_position == 9)
 			data->end = current->next;

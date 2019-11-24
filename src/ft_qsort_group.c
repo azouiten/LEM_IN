@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_qsort_group.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 23:28:07 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/18 16:05:06 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/21 18:06:49 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 static void	ft_swap(int i, int j, t_data *data)
 {
-	t_group *temp;
+	t_group	*temp;
 
-	temp =  data->array_result[i];
+	temp = data->array_result[i];
 	data->array_result[i] = data->array_result[j];
 	data->array_result[j] = temp;
 }
 
 static int	ft_partition(t_data *data, int start, int end)
 {
-	int	i;
-	int	j;
-	int	pivot;
+	int		i;
+	int		j;
+	int		pivot;
 
 	i = start - 1;
 	j = start;
@@ -43,9 +43,9 @@ static int	ft_partition(t_data *data, int start, int end)
 	return (i + 1);
 }
 
-int	ft_qsort_group(t_data *data, int start, int end)
+int			ft_qsort_group(t_data *data, int start, int end)
 {
-	int	p;
+	int		p;
 
 	if (start < end)
 	{

@@ -6,15 +6,15 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:17:10 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/19 20:46:27 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/24 04:50:47 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_inh.h"
 
-static t_edges	*ft_create_connection(t_vertices **edge_end)
+static t_edges		*ft_create_connection(t_vertices **edge_end)
 {
-	t_edges		*edge;
+	t_edges			*edge;
 
 	if (!(edge = (t_edges*)malloc(sizeof(t_edges))))
 		return (0);
@@ -26,7 +26,7 @@ static t_edges	*ft_create_connection(t_vertices **edge_end)
 
 static t_edges		*ft_assign_connection(t_vertices **end1, t_vertices **end2)
 {
-	t_edges		*temp_edge;
+	t_edges			*temp_edge;
 
 	if (!((*end1)->edges))
 	{
@@ -44,11 +44,11 @@ static t_edges		*ft_assign_connection(t_vertices **end1, t_vertices **end2)
 	return (temp_edge->next);
 }
 
-static int		ft_finish_assign(char **name, char **connection,
-						t_vertices **temp_name, t_vertices **temp_connection)
+static int			ft_finish_assign(char **name, char **connection,
+					t_vertices **temp_name, t_vertices **temp_connection)
 {
-	t_edges	*temp_edge0;
-	t_edges	*temp_edge1;
+	t_edges			*temp_edge0;
+	t_edges			*temp_edge1;
 
 	while (*temp_name && ft_strcmp((*temp_name)->name, *name))
 		*temp_name = (*temp_name)->next;
@@ -64,22 +64,22 @@ static int		ft_finish_assign(char **name, char **connection,
 	return (1);
 }
 
-static int		ft_make_connection(t_data *data, t_input *put,
+static int			ft_make_connection(t_data *data, t_input *p,
 					int hash_name, int hash_connection)
 {
-	char		*nod;
-	char		*connection;
-	t_vertices	*temp_name;
-	t_vertices	*temp_connection;
+	char			*nod;
+	char			*connection;
+	t_vertices		*temp_name;
+	t_vertices		*temp_connection;
 
-	while (put)
+	while (p)
 	{
-		if (put->line[0] == '#' && (put = put->next))
+		if (ft_printf("%s\n", p->line) && p->line[0] == '#' && (p = p->next))
 			continue ;
-		else if (!put)
+		else if (!p)
 			break ;
-		if (!ft_strchr(put->line, '-') || !(nod = ft_extract_edge(put->line))
-			|| !(connection = ft_extract_connection(put->line))
+		if (!ft_strchr(p->line, '-') || !(nod = ft_extract_edge(p->line))
+			|| !(connection = ft_extract_connection(p->line))
 			|| !(ft_check_validity(data, nod, connection)))
 			return (0);
 		if ((((hash_name = ft_hash_it(nod, data->vertices)) == -1))
@@ -89,14 +89,14 @@ static int		ft_make_connection(t_data *data, t_input *put,
 		!(temp_connection = data->hash_table[hash_connection]) ||
 		!(ft_finish_assign(&nod, &connection, &temp_name, &temp_connection)))
 			return (0);
-		put = put->next;
+		p = p->next;
 	}
 	return (1);
 }
 
-int				ft_create_edges(t_data *data)
+int					ft_create_edges(t_data *data)
 {
-	t_input		*temp;
+	t_input			*temp;
 
 	if (!data->input_head)
 		return (0);

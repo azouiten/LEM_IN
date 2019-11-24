@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 04:30:19 by ohachim           #+#    #+#             */
-/*   Updated: 2019/10/24 13:36:54 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/24 05:08:44 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,12 @@ int				ft_free_data(t_data *data)
 		data->visited = data->visited->next;
 		ft_memdel((void**)&tmp);
 	}
+	if (data->moving_ant)
+		ft_memdel((void**)&data->moving_ant);
+	if (data->array_result)
+		ft_memdel((void**)&data->array_result);
+	if (data->result)
+		ft_memdel((void**)&data->result);
 	return (0);
 }
 

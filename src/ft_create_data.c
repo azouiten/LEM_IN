@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/21 21:29:39 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/14 15:08:39 by azouiten         ###   ########.fr       */
-/*   Updated: 2019/11/14 12:46:27 by ohachim          ###   ########.fr       */
+/*   Created: 2019/11/21 17:55:02 by ohachim           #+#    #+#             */
+/*   Updated: 2019/11/24 04:06:19 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +19,7 @@ static int		ft_ants(t_data *data)
 	cn = 0;
 	if (!data->input_head->line)
 		return (0);
+	ft_printf("%s\n", data->input_head->line);
 	while (data->input_head->line[cn] != '\0')
 	{
 		if (!(ft_isdigit(data->input_head->line[cn])))
@@ -42,6 +42,7 @@ static int		ft_vertex_check(t_input *input, int *vertices)
 	{
 		if (ft_strchr(temp->line, '-'))
 			break ;
+		ft_printf("%s\n", temp->line);
 		if (temp->line[0] == 'L')
 			return (0);
 		if (temp->line[0] != '#' && ft_error_input(temp->line))
