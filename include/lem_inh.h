@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/21 17:54:10 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/26 18:24:55 by azouiten         ###   ########.fr       */
 /*   Updated: 2019/11/15 11:16:17 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -145,5 +145,5 @@ void					ft_exit(t_data *data);
 void					ft_bfs(t_data *data);
 void					ft_free_queue(t_data *data);
 t_agroups				*ft_swing_paths(t_data *data, t_agroups *agroup);
-
+int						ft_load_paths(t_data *data, t_group *group, int n_pths, int n_vrtx);
 #endif

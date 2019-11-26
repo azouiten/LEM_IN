@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/24 03:58:21 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/26 18:57:51 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,115 +191,147 @@ void			ft_add_to_agroup(t_data *data)
 	data->groups = NULL;
 }
 
-void			ft_load_paths(t_data *data)
+int				ft_rescore(t_data *data, t_group *group)
+{
+	t_group	*grp;
+	int		n_pths;
+	int		n_vrtx;
+
+	n_pths = 0;
+	n_vrtx = 0;
+	grp = data->result->group;
+	//write(1, "prick\n", 6);
+	while (grp)
+	{
+		n_vrtx += grp->size - 1;
+		n_pths++;
+		if (group == grp)
+			break ;
+		grp = grp->next;
+	}
+	//write (1, "geeeez\n", 7);
+	return (ft_load_paths(data, group, n_pths, n_vrtx));
+}
+
+void			ft_free_tail(t_group **group)
+{
+	t_group	*tmp;
+	t_path	*pth;
+	t_path	*tmp_pth;
+
+	pth = NULL;
+	tmp_pth = NULL;
+	tmp = NULL;
+	while (*group)
+	{
+		pth = (*group)->path;
+		while (pth)
+		{
+			tmp_pth = pth;
+			pth = pth->next;
+			ft_memdel((void**)&tmp_pth);
+		}
+		tmp = *group;
+		*group = (*group)->next;
+		ft_memdel((void**)&tmp);
+	}
+}
+
+void			ft_enhance_groups(t_data *data)
+{
+	t_group	*grp;
+	int		res;
+	int		past_res;
+
+	res = 0;
+	past_res = -1;
+	grp = data->result->group;
+	while (grp)
+	{
+		//write(1, "in\n", 3);
+		if ((res = ft_rescore(data, grp)) > past_res && past_res != -1)
+		{
+			//ft_putnbr(res);
+			//write(1 , "\n", 1);
+			ft_free_tail(&grp);
+			break ;
+		}
+		else
+		{
+			//ft_putnbr(res);
+			//write(1 , "\n", 1);
+			past_res = res;
+		}
+		grp = grp->next;
+		//write(1, "? ?\n", 4);
+	}
+	grp = data->result->group;
+	while (grp->next)
+		grp = grp->next;
+	ft_rescore(data, grp);
+	ft_putstr("out & clear\n");
+}
+
+int				ft_biggest(t_data *data, t_group *group)
+{
+	t_group	*grp;
+	int		max;
+
+	grp = data->result->group;
+	max = grp->load + grp->size;
+	while (grp)
+	{
+		if (grp->load + grp->size > max)
+			max = grp->load + grp->size;
+		if (grp == group)
+			break ;
+		grp = grp->next;
+}
+	//write (1, "wubaluba\n", 9);
+	return (max);
+}
+
+int				ft_load_paths(t_data *data, t_group *group, int n_pths, int n_vrtx)
 {
 	int		max_size;
 	t_group	*tmp_grp;
 	int		ants;
 
 	ants = data->ants;
+	//write (1, "bloom*\n", 7);
 	max_size = data->result->group->size;
 	tmp_grp = data->result->group;
 	while (tmp_grp)
 	{
 		if (tmp_grp->size > max_size)
 			max_size = tmp_grp->size;
+		if (tmp_grp == group)
+			break ;
 		tmp_grp = tmp_grp->next;
 	}
+	//write (1, "bloom0\n", 7);
 	tmp_grp = data->result->group;
 	while (tmp_grp && ants > 0)
 	{
 		tmp_grp->load = (ants - (max_size - tmp_grp->size + 1)) < 0 ? ants : max_size - tmp_grp->size + 1;
 			ants -= tmp_grp->load;
+		if (tmp_grp == group)
+			break ;
 		tmp_grp = tmp_grp->next;
 	}
-	ants = (ants % data->result->n_pths == 0) ? ants / data->result->n_pths : ants / data->result->n_pths + 1;
+	//write (1, "bloom1\n", 7);
+	ants = (ants % n_pths == 0) ? ants / n_pths : ants / n_pths + 1;
 	tmp_grp = data->result->group;
 	while (ants && tmp_grp)
 	{
 		if (tmp_grp->load)
 			tmp_grp->load += ants;
+		if (tmp_grp == group)
+			break ;
 		tmp_grp = tmp_grp->next;
 	}
-}
-
-t_group			*ft_add_sort_g(t_data * data, t_group *ming, t_group **group)
-{
-	t_group	*grps;
-	t_group	*grp;
-
-	grps = *group;
-	if (!(grp = (t_group*)malloc(sizeof(t_path))))
-		ft_exit(data);
-	grp->path = ming->path;
-	grp->load = 0;
-	grp->size = ming->size;
-	grp->next = NULL;
-	if (!group)
-		return (grp);
-	while ((*group)->next);
-	(*group)->next = grp;
-	return (grps);
-}
-
-int				ft_score(t_data *data, t_group *group)
-{
-	t_group	*grp;
-	int		n_vrtx;
-	int		n_pths;
-
-	n_vrtx = 0;
-	n_pths = 0;
-	grp = data->result->group;
-	while (grp != group)
-	{
-		n_pths++;
-		n_vrtx += grp->size - 1;
-		grp = grp->next;
-	}
-	//ft_printf("[%d][%d]\n", n_pths, n_vrtx);
-	ft_printf ("%d\n", ((n_vrtx + data->ants) % n_pths == 0) ?
-	((n_vrtx + data->ants) / n_pths) : ((n_vrtx + data->ants) / n_pths) + 1);
-	return (((n_vrtx + data->ants) % n_pths == 0) ?
-	((n_vrtx + data->ants) / n_pths) : ((n_vrtx + data->ants) / n_pths) + 1);
-}
-
-void			ft_free_rest(t_group **group)
-{
-	t_group	*grp;
-	t_group	*tmp;
-
-	grp = *group;
-	while (grp)
-	{
-		tmp = grp;
-		grp = grp->next;
-		ft_memdel((void**)&tmp);
-	}
-	*group = NULL;
-}
-
-void			ft_rescore(t_data *data)
-{
-	t_group	*tmp;
-	int		result;
-	int		resultmp;
-	
-	result = -1;
-	tmp = data->result->group;
-	while (tmp)
-	{
-		ft_printf("hitler\n");
-		if (result < (resultmp = ft_score(data, tmp->next)) && result != - 1)
-		{
-			ft_printf("out & clear\n");
-			ft_free_rest(&tmp->next);
-			break ;
-		}
-		else
-			result = resultmp;
-		tmp = tmp->next;
-	}
+	//write (1, "bloom\n", 7);
+	return (ft_biggest(data, group));
 }
 
 void			ft_bfs(t_data *data)
@@ -334,8 +366,7 @@ void			ft_bfs(t_data *data)
 		data->result = ft_swing_paths(data, data->agroups->next);
 	ft_list_to_array(data, 0);
 	ft_sort_result(data);
-	//ft_rescore(data);
-	ft_load_paths(data);
+	ft_enhance_groups(data);
 }
 
 void	ft_free_path(t_path *path)
