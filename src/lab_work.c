@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/26 18:57:51 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/27 16:40:46 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,6 @@ int				ft_rescore(t_data *data, t_group *group)
 	n_pths = 0;
 	n_vrtx = 0;
 	grp = data->result->group;
-	//write(1, "prick\n", 6);
 	while (grp)
 	{
 		n_vrtx += grp->size - 1;
@@ -209,7 +208,7 @@ int				ft_rescore(t_data *data, t_group *group)
 			break ;
 		grp = grp->next;
 	}
-	//write (1, "geeeez\n", 7);
+	data->result->n_pths = n_pths;
 	return (ft_load_paths(data, group, n_pths, n_vrtx));
 }
 
@@ -248,28 +247,21 @@ void			ft_enhance_groups(t_data *data)
 	grp = data->result->group;
 	while (grp)
 	{
-		//write(1, "in\n", 3);
 		if ((res = ft_rescore(data, grp)) > past_res && past_res != -1)
 		{
-			//ft_putnbr(res);
-			//write(1 , "\n", 1);
 			ft_free_tail(&grp);
 			break ;
 		}
 		else
 		{
-			//ft_putnbr(res);
-			//write(1 , "\n", 1);
 			past_res = res;
 		}
 		grp = grp->next;
-		//write(1, "? ?\n", 4);
 	}
 	grp = data->result->group;
 	while (grp->next)
 		grp = grp->next;
 	ft_rescore(data, grp);
-	ft_putstr("out & clear\n");
 }
 
 int				ft_biggest(t_data *data, t_group *group)
@@ -286,8 +278,7 @@ int				ft_biggest(t_data *data, t_group *group)
 		if (grp == group)
 			break ;
 		grp = grp->next;
-}
-	//write (1, "wubaluba\n", 9);
+	}
 	return (max);
 }
 
@@ -298,7 +289,6 @@ int				ft_load_paths(t_data *data, t_group *group, int n_pths, int n_vrtx)
 	int		ants;
 
 	ants = data->ants;
-	//write (1, "bloom*\n", 7);
 	max_size = data->result->group->size;
 	tmp_grp = data->result->group;
 	while (tmp_grp)
@@ -309,7 +299,6 @@ int				ft_load_paths(t_data *data, t_group *group, int n_pths, int n_vrtx)
 			break ;
 		tmp_grp = tmp_grp->next;
 	}
-	//write (1, "bloom0\n", 7);
 	tmp_grp = data->result->group;
 	while (tmp_grp && ants > 0)
 	{
@@ -319,7 +308,6 @@ int				ft_load_paths(t_data *data, t_group *group, int n_pths, int n_vrtx)
 			break ;
 		tmp_grp = tmp_grp->next;
 	}
-	//write (1, "bloom1\n", 7);
 	ants = (ants % n_pths == 0) ? ants / n_pths : ants / n_pths + 1;
 	tmp_grp = data->result->group;
 	while (ants && tmp_grp)
@@ -330,7 +318,6 @@ int				ft_load_paths(t_data *data, t_group *group, int n_pths, int n_vrtx)
 			break ;
 		tmp_grp = tmp_grp->next;
 	}
-	//write (1, "bloom\n", 7);
 	return (ft_biggest(data, group));
 }
 
