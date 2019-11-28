@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/27 16:40:46 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/28 08:49:14 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,19 +244,16 @@ void			ft_enhance_groups(t_data *data)
 
 	res = 0;
 	past_res = -1;
+	data->result->n_pths = 0;
 	grp = data->result->group;
 	while (grp)
 	{
 		if ((res = ft_rescore(data, grp)) > past_res && past_res != -1)
-		{
-			ft_free_tail(&grp);
 			break ;
-		}
 		else
-		{
 			past_res = res;
-		}
 		grp = grp->next;
+		data->result->n_pths++;
 	}
 	grp = data->result->group;
 	while (grp->next)
@@ -353,7 +350,10 @@ void			ft_bfs(t_data *data)
 		data->result = ft_swing_paths(data, data->agroups->next);
 	ft_list_to_array(data, 0);
 	ft_sort_result(data);
+	ft_printf("----%d\n", data->result->n_pths);
 	ft_enhance_groups(data);
+	ft_printf("----%d\n", data->result->n_pths);
+	ft_list_to_array(data, 0);
 }
 
 void	ft_free_path(t_path *path)
@@ -400,12 +400,45 @@ t_agroups	*ft_swing_paths(t_data *data, t_agroups *agroup)
 	return (agroup);
 }
 
+int	ft_count(t_data *data)
+{
+	int	n_load;
+	int	gn;
+
+	n_load = 0;
+	gn = 0;
+	while (gn < data->result->n_pths)
+	{
+		n_load = n_load + data->array_result[gn]->load;
+		gn++;
+	}
+	return (n_load);
+}
+
+void	ft_calibrate_loads(t_data *data)
+{
+	int	gn;
+	int	n_load;
+
+	gn = data->result->n_pths - 1;
+	n_load = ft_count(data);
+	while (n_load > data->ants + 1)
+	{
+		if (gn < 0)
+			gn = data->result->n_pths - 1;
+		data->array_result[gn]->load -= 1;
+		n_load--;
+		gn--;
+	}	
+}
+
 int		main(void)
 {
 	t_data	data;
 
 	ft_parse(&data);
 	ft_bfs(&data);
+	ft_calibrate_loads(&data);
 	ft_print_moves(&data, 0, 0, 0);
 	ft_free_data(&data);
 	return (0);
