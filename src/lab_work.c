@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/28 08:49:14 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/28 13:10:08 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,7 +307,7 @@ int				ft_load_paths(t_data *data, t_group *group, int n_pths, int n_vrtx)
 	}
 	ants = (ants % n_pths == 0) ? ants / n_pths : ants / n_pths + 1;
 	tmp_grp = data->result->group;
-	while (ants && tmp_grp)
+	while (ants > 0 && tmp_grp)
 	{
 		if (tmp_grp->load)
 			tmp_grp->load += ants;
@@ -438,7 +438,7 @@ int		main(void)
 
 	ft_parse(&data);
 	ft_bfs(&data);
-	ft_calibrate_loads(&data);
+//	ft_calibrate_loads(&data);
 	ft_print_moves(&data, 0, 0, 0);
 	ft_free_data(&data);
 	return (0);

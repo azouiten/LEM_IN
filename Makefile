@@ -6,7 +6,7 @@
 #    By: ohachim <ohachim@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/24 13:47:22 by ohachim           #+#    #+#              #
-#    Updated: 2019/11/21 17:53:50 by ohachim          ###   ########.fr        #
+#    Updated: 2019/11/28 08:56:53 by ohachim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ LDFLAGS = -Llibft
 
 LDLIBS = -lft
 
-NAME = test
+NAME = lem-in
 
 CC = gcc
 
