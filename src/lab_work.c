@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/28 13:10:08 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/29 11:43:11 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,6 @@ int				ft_rescore(t_data *data, t_group *group)
 			break ;
 		grp = grp->next;
 	}
-	data->result->n_pths = n_pths;
 	return (ft_load_paths(data, group, n_pths, n_vrtx));
 }
 
@@ -248,7 +247,7 @@ void			ft_enhance_groups(t_data *data)
 	grp = data->result->group;
 	while (grp)
 	{
-		if ((res = ft_rescore(data, grp)) > past_res && past_res != -1)
+		if ((res = ft_rescore(data, grp)) >= past_res && past_res != -1)
 			break ;
 		else
 			past_res = res;
@@ -438,9 +437,9 @@ int		main(void)
 
 	ft_parse(&data);
 	ft_bfs(&data);
-//	ft_calibrate_loads(&data);
+	//ft_calibrate_loads(&data);
 	ft_print_moves(&data, 0, 0, 0);
-	ft_free_data(&data);
+	//ft_free_data(&data);
 	return (0);
 }
 // work on optimizing the groups from within!
