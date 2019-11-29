@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/29 12:17:11 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/29 12:45:30 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,24 +238,29 @@ void			ft_free_tail(t_group **group)
 void			ft_enhance_groups(t_data *data)
 {
 	t_group	*grp;
+	t_group	*grp_tmp;
 	int		res;
 	int		past_res;
 
 	res = 0;
 	past_res = -1;
+	grp_tmp = NULL;
 	data->result->n_pths = 0;
 	grp = data->result->group;
 	while (grp)
 	{
 		if ((res = ft_rescore(data, grp)) >= past_res && past_res != -1)
+		{
+			grp_tmp = grp;
 			break ;
+		}
 		else
 			past_res = res;
 		grp = grp->next;
 		data->result->n_pths++;
 	}
 	grp = data->result->group;
-	while (grp->next)
+	while (grp->next != grp_tmp)
 		grp = grp->next;
 	ft_rescore(data, grp);
 }
@@ -352,7 +357,6 @@ void			ft_bfs(t_data *data)
 	ft_printf("----%d\n", data->result->n_pths);
 	ft_enhance_groups(data);
 	ft_printf("----%d\n", data->result->n_pths);
-	//ft_list_to_array(data, 0);
 }
 
 void	ft_free_path(t_path *path)
