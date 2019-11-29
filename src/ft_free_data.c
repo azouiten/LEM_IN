@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 04:30:19 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/24 05:08:44 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/29 12:13:25 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,8 @@ int				ft_free_data(t_data *data)
 	t_input		*head_copy;
 	t_input		*temp;
 	t_v_buffer	*tmp;
-	//t_group		*tmpo;// free the paths in groups
 
 	head_copy = data->input_head;
-	/*while (data->groups)
-	{
-		tmpo = data->groups;
-		data->groups = data->groups->next;
-		ft_memdel((void**)&tmpo);
-	}*/
 	while (head_copy)
 	{
 		temp = head_copy;
@@ -94,7 +87,7 @@ int				ft_free_data(t_data *data)
 	}
 	if (data->hash_table)
 		ft_free_htable(data);
-	if (data->queue)
+	if (data->free_q)
 		ft_free_queue(data);
 	while (data->visited)
 	{
@@ -108,7 +101,7 @@ int				ft_free_data(t_data *data)
 		ft_memdel((void**)&data->array_result);
 	if (data->result)
 		ft_memdel((void**)&data->result);
-	return (0);
+		return (0);	
 }
 
 
