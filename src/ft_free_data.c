@@ -6,11 +6,13 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 04:30:19 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/29 12:48:25 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/29 20:32:23 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_inh.h"
+
+int j = 0;
 
 static void		ft_free_edges(t_vertices **vertex)
 {
@@ -68,8 +70,57 @@ void		ft_free_queue(t_data *data)
 		head_queue = head_queue->next;
 		ft_memdel((void**)&temp_queue);
 	}
+	data->free_q = NULL;
 }
 
+void			ft_free_path(t_group *group)
+{
+	t_path	*pth;
+	t_path	*tmp;
+
+	tmp = NULL;
+	pth = group->path;
+	while (pth)
+	{
+		tmp = pth;
+		pth = pth->next;
+		ft_memdel((void**)&tmp);
+	}
+}
+
+void			ft_free_group(t_agroups *agroup)
+{
+	t_group	*grp;
+	t_group	*tmp;
+
+	tmp = NULL;
+	grp = agroup->group;
+	while (grp)
+	{
+		ft_printf("%d\n", j++);
+		ft_free_path(grp);
+		tmp = grp;
+		grp = grp->next;
+		ft_memdel((void**)&tmp);
+	}
+	ft_printf("++++++++++++++++++++++++++++++\n");
+}
+
+void			ft_free_agroups(t_data *data)
+{
+	t_agroups	*agps;
+	t_agroups	*tmp;
+
+	tmp = NULL;
+	agps = data->agroups;
+	while (agps)
+	{
+		ft_free_group(agps);
+		tmp = agps;
+		agps = agps->next;
+		ft_memdel((void**)&tmp);
+	}
+}
 
 int				ft_free_data(t_data *data)
 {
@@ -77,6 +128,8 @@ int				ft_free_data(t_data *data)
 	t_input		*temp;
 	t_v_buffer	*tmp;
 
+	if (data->agroups)
+		ft_free_agroups(data);
 	head_copy = data->input_head;
 	while (head_copy)
 	{
@@ -87,8 +140,6 @@ int				ft_free_data(t_data *data)
 	}
 	if (data->hash_table)
 		ft_free_htable(data);
-	if (data->free_q)
-		ft_free_queue(data);
 	while (data->visited)
 	{
 		tmp = data->visited;
@@ -98,22 +149,14 @@ int				ft_free_data(t_data *data)
 	if (data->moving_ant)
 		ft_memdel((void**)&data->moving_ant);
 	if (data->array_result)
+	{
+		ft_printf("yikes\n");
 		ft_memdel((void**)&data->array_result);
+	}
 	if (data->result)
-		ft_memdel((void**)&data->result);
-		return (0);	
+	{
+		//ft_free_group(data->result);
+//		ft_memdel((void**)&data->result);
+	}
+	return (0);	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

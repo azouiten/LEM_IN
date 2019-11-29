@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 21:39:38 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/15 10:17:00 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:15:12 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,6 @@ static t_v_buffer	*ft_visited_node(t_vertices **vertex)
 	node->next = NULL;
 	return (node);
 }
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * is v_buffer smthing u want, is it the best u can do ? *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 static int	ft_add_vbuffer(t_data *data, t_vertices **vertex)
 {

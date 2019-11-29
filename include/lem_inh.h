@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/26 18:24:55 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:54:49 by azouiten         ###   ########.fr       */
 /*   Updated: 2019/11/15 11:16:17 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -30,10 +30,9 @@ typedef	struct			s_agroups
 
 typedef	struct			s_group
 {
-	int	status;
+	int					status;
 	struct s_path		*path;
 	int					load;
-	int					sorted;
 	int					size;
 	struct s_group		*next;
 }						t_group;
@@ -47,7 +46,7 @@ typedef	struct			s_v_buffer
 typedef	struct			s_path
 {
 	struct s_vertices	*vertex;
-	int			status;  // Must initialize.
+	int					status;  // Must initialize.
 	struct s_edges		*edg;
 	struct s_path		*next;
 }						t_path;
