@@ -6,8 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/30 15:04:33 by ohachim          ###   ########.fr       */
-/*   Updated: 2019/11/15 11:16:17 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/30 21:31:30 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +45,7 @@ typedef	struct			s_v_buffer
 typedef	struct			s_path
 {
 	struct s_vertices	*vertex;
-	int					status;  // Must initialize.
+	int					status;
 	struct s_edges		*edg;
 	struct s_path		*next;
 }						t_path;
@@ -72,7 +71,7 @@ typedef struct			s_edges
 {
 	struct s_edges		*edge_end;
 	struct s_vertices	*connection;
-	int					flow; // new;
+	int					flow;
 	struct s_edges		*next;
 }						t_edges;
 
@@ -90,11 +89,9 @@ typedef struct			s_vertices
 
 typedef struct			s_ants
 {
-	struct s_path	*path;
-
-	int		in_end;
-
-}	t_ants;
+	struct s_path		*path;
+	int					in_end;
+}						t_ants;
 
 typedef struct			s_data
 {
@@ -106,44 +103,59 @@ typedef struct			s_data
 	struct s_vertices	*start;
 	struct s_vertices	*end;
 	struct s_input		*input_head;
-	struct s_queue		*queue; // new
-	struct s_queue		*free_q;// keeps the head of the q to be freed
-	struct s_path		*path;	// result of the bfs !
+	struct s_queue		*queue;
+	struct s_queue		*free_q;
+	struct s_path		*path;
 	struct s_group		*groups;
 	struct s_agroups	*agroups;
-	struct s_ants		*moving_ant; // To be free.
+	struct s_ants		*moving_ant;
 	struct s_group		**array_result;
 	struct s_agroups	*result;
-	int			c;
+	int					c;
 }						t_data;
-int      ft_list_to_array(t_data *data, int gn);
-int     			ft_sort_result(t_data *data);
-int	ft_qsort_group(t_data *data, int start, int end);
+int						ft_list_to_array(t_data *data, int gn);
+int						ft_sort_result(t_data *data);
+int						ft_qsort_group(t_data *data, int start, int end);
 int						ft_free_data(t_data *data);
 int						ft_create_data(t_data *data);
 int						ft_error_input(char *line);
 int						ft_create_hash(t_data *data);
 int						ft_append_vertex(t_data *data, int hash,
-						char *line, int vertex_position);
+		char *line, int vertex_position);
 char					*ft_extract_name(char *line);
 int						ft_hash_it(char *name, int vertices);
 int						ft_create_edges(t_data *data);
 int						ft_check_validity(t_data *data, char *name,
-						char *connection);
+		char *connection);
 char					*ft_extract_edge(char *line);
 char					*ft_extract_connection(char *line);
 void					ft_initialize_hdata(t_data *data);
 void					ft_parse(t_data *data);
 int						ft_get_input(t_data *data);
-t_queue					*ft_add_queue(t_data *data, t_vertices 
-						**vertex, t_edges **edg, t_path **pth); // new
-int					ft_print_moves(t_data *data, int ant_index, int si, int arrived);
+t_queue					*ft_add_queue(t_data *data, t_vertices
+		**vertex, t_edges **edg, t_path **pth);
+int						ft_print_moves(t_data *data, int ant_index, int si,
+		int arrived);
 void					ft_unvisit(t_v_buffer *visited);
-// anas's stuff
-
 void					ft_exit(t_data *data);
 void					ft_bfs(t_data *data);
 void					ft_free_queue(t_data *data);
 t_agroups				*ft_swing_paths(t_data *data, t_agroups *agroup);
-int						ft_load_paths(t_data *data, t_group *group, int n_pths, int n_vrtx);
+int						ft_load_paths(t_data *data, t_group *group,
+		int n_pths, int n_vrtx);
+void					ft_add_flow(t_data *data);
+void					ft_flush_vbuffer(t_data *data);
+void					ft_add_path(t_data *data, t_vertices *vertex);
+void					ft_add_to_path(t_data *data, t_group *group,
+		t_vertices *vertex);
+void					ft_collect_paths(t_data *data);
+void					ft_add_to_agroup(t_data *data);
+int						ft_rescore(t_data *data, t_group *group);
+void					ft_enhance_groups(t_data *data);
+int						ft_biggest(t_data *data, t_group *group);
+int						ft_count(t_data *data);
+void					ft_calibrate_loads(t_data *data);
+int						ft_rescore(t_data *data, t_group *group);
+void					ft_free_agroups(t_data *data);
+
 #endif

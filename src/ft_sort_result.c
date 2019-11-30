@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 13:58:13 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/30 15:30:26 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/30 18:43:47 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static int		ft_array_to_list(t_data *data, t_agroups *temp,
 	temp->n_vrtx = data->result->n_vrtx;
 	temp->n_pths = data->result->n_pths;
 	temp->score = data->result->score;
-	temp->next = (data->c == -1) ? data->agroups->next : data->agroups->next->next;
+	temp->next = (data->c == -1) ? data->agroups->next :
+		data->agroups->next->next;
 	temp->group = data->array_result[0];
 	head = temp->group;
 	while (len < data->result->n_pths)
@@ -44,7 +45,7 @@ int				ft_sort_result(t_data *data)
 {
 	t_agroups	*temp;
 	t_group		*head;
-	int		len;
+	int			len;
 
 	if (!ft_list_to_array(data, 0))
 		ft_exit(data);

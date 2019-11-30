@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 21:39:38 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/29 14:15:12 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/30 18:24:41 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_v_buffer	*ft_visited_node(t_vertices **vertex)
 	return (node);
 }
 
-static int	ft_add_vbuffer(t_data *data, t_vertices **vertex)
+static int			ft_add_vbuffer(t_data *data, t_vertices **vertex)
 {
 	t_v_buffer	*visited;
 
@@ -35,7 +35,8 @@ static int	ft_add_vbuffer(t_data *data, t_vertices **vertex)
 	return (1);
 }
 
-t_queue	*ft_add_queue(t_data *data, t_vertices **vertex, t_edges **edg, t_path **pth)
+t_queue				*ft_add_queue(t_data *data, t_vertices **vertex,
+		t_edges **edg, t_path **pth)
 {
 	t_queue *queue;
 

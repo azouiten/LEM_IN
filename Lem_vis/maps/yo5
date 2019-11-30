@@ -7,15 +7,3 @@ r2 9 9
 r0-r1
 r0-r2
 r2-r1
-
-L1-r1 L2-r2 
-L3-r1 L2-r1 L4-r2 
-L5-r1 L4-r1 L6-r2 
-L7-r1 L6-r1 L8-r2 
-L9-r1 L8-r1 L10-r2 
-L11-r1 L10-r1 L12-r2 
-L13-r1 L12-r1 L14-r2 
-L15-r1 L14-r1 L16-r2 
-L17-r1 L16-r1 L18-r2 
-L19-r1 L18-r1 L20-r2 
-L20-r1 
