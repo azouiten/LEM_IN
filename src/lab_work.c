@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/30 15:06:03 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/30 15:23:14 by ohachim          ###   ########.fr       */
 /*   Updated: 2019/11/29 20:26:50 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -411,7 +411,6 @@ int		main(void)
 
 	ft_parse(&data);
 	ft_bfs(&data);
-	ft_printf("hello\n");
 	ft_calibrate_loads(&data);
 	ft_print_moves(&data, 0, 0, 0);
 	ft_free_data(&data);

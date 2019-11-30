@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:17:10 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/24 04:50:47 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/30 15:25:19 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static t_edges		*ft_assign_connection(t_vertices **end1, t_vertices **end2)
 	if (!(temp_edge->next = (t_edges*)malloc(sizeof(t_edges))))
 		return (0);
 	temp_edge->next->connection = *end2;
+	temp_edge->next->flow = 0;
 	temp_edge->next->next = NULL;
 	return (temp_edge->next);
 }
