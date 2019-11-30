@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 13:58:13 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/29 20:31:18 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:09:39 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int		ft_array_to_list(t_data *data)
 	temp->n_vrtx = data->result->n_vrtx;
 	temp->n_pths = data->result->n_pths;
 	temp->score = data->result->score;
-	temp->next = data->result->next;
+	temp->next = (data->c == -1) ? data->agroups->next : data->agroups->next->next;
 	temp->group = data->array_result[0];
 	head = temp->group;
 	while (len < data->result->n_pths)
@@ -37,34 +37,35 @@ static int		ft_array_to_list(t_data *data)
 	temp->group = head;
 	ft_memdel((void**)&data->result);
 	data->result = temp;
-	data->agroups->next = data->result;
+	if (data->c == -1)
+		data->agroups = data->result;
+	else
+		data->agroups->next = data->result;
 	return (1);
 }
 
 int				ft_sort_result(t_data *data)
 {
-	int k = 0;
-	t_group *res;
+	t_agroups *tmp;
 
-	res = data->agroups->next->group;
-	ft_printf("______________________________\n");
-	while (res)
+	tmp = data->agroups;
+	while (tmp)
 	{
-		ft_printf(" - %d ->> ", k++);
-		res = res->next;
+		ft_printf("%p------\n", &tmp);
+		tmp = tmp->next;
 	}
-	k = 0;
+	ft_printf("%p------\n", &tmp);
 	if (!ft_list_to_array(data, 0))
 		ft_exit(data);
 	ft_qsort_group(data, 0, data->result->n_pths - 1);
 	if (!(ft_array_to_list(data)))
 		ft_exit(data);
-	res = data->agroups->next->group;
-	ft_printf("______________________________\n");
-	while (res)
+	tmp = data->agroups;
+	while (tmp)
 	{
-		ft_printf(" - %d ->> ", k++);
-		res = res->next;
+		ft_printf("%p+++++\n", &tmp);
+		tmp = tmp->next;
 	}
+	ft_printf("%p------\n", &tmp);
 	return (1);
 }

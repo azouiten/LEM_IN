@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/29 17:54:49 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:04:33 by ohachim          ###   ########.fr       */
 /*   Updated: 2019/11/15 11:16:17 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -114,6 +114,7 @@ typedef struct			s_data
 	struct s_ants		*moving_ant; // To be free.
 	struct s_group		**array_result;
 	struct s_agroups	*result;
+	int			c;
 }						t_data;
 int      ft_list_to_array(t_data *data, int gn);
 int     			ft_sort_result(t_data *data);

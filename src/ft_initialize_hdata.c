@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 11:25:38 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/29 14:22:39 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/30 15:04:52 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_initialize_hdata(t_data *data)
 {
+	data->c = 0;
 	data->ants = 0;
 	data->vertices = 0;
 	data->max_hash = 0;
