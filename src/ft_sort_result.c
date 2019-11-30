@@ -6,19 +6,15 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 13:58:13 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/30 15:09:39 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/30 15:30:26 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_inh.h"
 
-static int		ft_array_to_list(t_data *data)
+static int		ft_array_to_list(t_data *data, t_agroups *temp,
+		t_group *head, int len)
 {
-	t_agroups	*temp;
-	t_group		*head;
-	int			len;
-
-	len = 1;
 	if (!(temp = (t_agroups*)malloc(sizeof(t_agroups))))
 		return (0);
 	temp->n_vrtx = data->result->n_vrtx;
@@ -46,26 +42,14 @@ static int		ft_array_to_list(t_data *data)
 
 int				ft_sort_result(t_data *data)
 {
-	t_agroups *tmp;
+	t_agroups	*temp;
+	t_group		*head;
+	int		len;
 
-	tmp = data->agroups;
-	while (tmp)
-	{
-		ft_printf("%p------\n", &tmp);
-		tmp = tmp->next;
-	}
-	ft_printf("%p------\n", &tmp);
 	if (!ft_list_to_array(data, 0))
 		ft_exit(data);
 	ft_qsort_group(data, 0, data->result->n_pths - 1);
-	if (!(ft_array_to_list(data)))
+	if (!(ft_array_to_list(data, temp, head, 1)))
 		ft_exit(data);
-	tmp = data->agroups;
-	while (tmp)
-	{
-		ft_printf("%p+++++\n", &tmp);
-		tmp = tmp->next;
-	}
-	ft_printf("%p------\n", &tmp);
 	return (1);
 }
