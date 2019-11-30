@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/29 12:45:30 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/11/29 13:08:16 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,9 +354,7 @@ void			ft_bfs(t_data *data)
 		data->result = ft_swing_paths(data, data->agroups->next);
 	ft_list_to_array(data, 0);
 	ft_sort_result(data);
-	ft_printf("----%d\n", data->result->n_pths);
 	ft_enhance_groups(data);
-	ft_printf("----%d\n", data->result->n_pths);
 }
 
 void	ft_free_path(t_path *path)
