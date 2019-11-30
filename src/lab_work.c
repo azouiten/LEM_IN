@@ -6,12 +6,15 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/29 13:08:16 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/30 12:46:08 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/29 20:26:50 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_inh.h"
 #include <stdio.h>
+
+int		i = 135;
 
 void			ft_exit(t_data *data) // Must get its own file.
 {
@@ -116,6 +119,7 @@ void			ft_add_path(t_data *data, t_vertices *vertex)
 	group->path = path;
 	group->size = 1;
 	group->load = 0;
+	ft_printf("%d\n", i--);
 	group->next = data->groups;
 	data->groups = group;
 }
@@ -211,30 +215,6 @@ int				ft_rescore(t_data *data, t_group *group)
 	return (ft_load_paths(data, group, n_pths, n_vrtx));
 }
 
-void			ft_free_tail(t_group **group)
-{
-	t_group	*tmp;
-	t_path	*pth;
-	t_path	*tmp_pth;
-
-	pth = NULL;
-	tmp_pth = NULL;
-	tmp = NULL;
-	while (*group)
-	{
-		pth = (*group)->path;
-		while (pth)
-		{
-			tmp_pth = pth;
-			pth = pth->next;
-			ft_memdel((void**)&tmp_pth);
-		}
-		tmp = *group;
-		*group = (*group)->next;
-		ft_memdel((void**)&tmp);
-	}
-}
-
 void			ft_enhance_groups(t_data *data)
 {
 	t_group	*grp;
@@ -322,18 +302,17 @@ int				ft_load_paths(t_data *data, t_group *group, int n_pths, int n_vrtx)
 	return (ft_biggest(data, group));
 }
 
+int	k = 0;
+
 void			ft_bfs(t_data *data)
 {
-	int	i;
 	t_path *path;
 	int	c;
 
 	c = 0;
-	i = 0;
 	while (!data->agroups || !data->agroups->next || data->agroups->score <=
 			data->agroups->next->score)
 	{
-		i++;
 		ft_init_queue(data);
 		while ((c = ft_check_last(data)) == 0);
 		if (c == -1)
@@ -344,6 +323,7 @@ void			ft_bfs(t_data *data)
 		ft_add_flow(data);
 		ft_collect_paths(data);
 		ft_add_to_agroup(data);
+		ft_free_queue(data);
 	}
 	if (c == -1 && !data->agroups)
 		ft_exit(data);
@@ -352,20 +332,39 @@ void			ft_bfs(t_data *data)
 		data->result = ft_swing_paths(data, data->agroups);	
 	else if (data->agroups->next && data->agroups->score > data->agroups->next->score)
 		data->result = ft_swing_paths(data, data->agroups->next);
-	ft_list_to_array(data, 0);
+	t_group	*res;
+	ft_printf(" - %p\n", data->result);
+	res = data->agroups->next->group;
+/*	while (res)
+	{
+		ft_printf(" + %d ->> ", k++);
+		res = res->next;
+	}
+	k = 0;*/
 	ft_sort_result(data);
+<<<<<<< HEAD
+=======
+	ft_printf("\n - %p\n", data->result);
+	res = data->result->group;
+	res = data->agroups->next->group;
+/*	while (res)
+	{
+		ft_printf(" - %d ->> ", k++);
+		res = res->next;
+	}*/
+>>>>>>> 35ed28ad1ed8d0d0efc377d5794861df800b3192
 	ft_enhance_groups(data);
 }
 
-void	ft_free_path(t_path *path)
+void	ft_free_pth(t_path **path)
 {
 	t_path *tmp;
 
 	tmp = NULL;
-	while (path)
+	while (*path)
 	{
-		tmp = path;
-		path = path->next;
+		tmp = *path;
+		*path = (*path)->next;
 		ft_memdel((void**)&tmp);
 	}
 }
@@ -394,7 +393,7 @@ t_agroups	*ft_swing_paths(t_data *data, t_agroups *agroup)
 			tmp = path_rep;
 			group->path = group->path->next;
 		}
-		ft_free_path(pth);
+		ft_free_pth(&pth);
 		group->path = path_rep;	
 		group = group->next;
 	}
@@ -440,7 +439,7 @@ int		main(void)
 	ft_parse(&data);
 	ft_bfs(&data);
 	ft_calibrate_loads(&data);
-	ft_print_moves(&data, 0, 0, 0);
+	//ft_print_moves(&data, 0, 0, 0);
 	ft_free_data(&data);
 	return (0);
 }

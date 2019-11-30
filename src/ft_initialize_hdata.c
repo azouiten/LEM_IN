@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/06 11:25:38 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/15 12:17:09 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/11/29 14:22:39 by azouiten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	ft_initialize_hdata(t_data *data)
 	data->ants = 0;
 	data->vertices = 0;
 	data->max_hash = 0;
-	data->queue = 0;
+	data->queue = NULL;
+	data->free_q = NULL;
 	data->hash_table = NULL;
 	data->path = NULL;
 	data->start = NULL;
