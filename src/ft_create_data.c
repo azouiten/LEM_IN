@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:55:02 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/24 04:06:19 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/12/01 11:02:17 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,20 @@
 
 static int		ft_ants(t_data *data)
 {
+	t_input *to_free;
 	int	cn;
 
 	cn = 0;
-	if (!data->input_head->line)
+	if (!data->input_head->line || data->input_head->line[0] == '\0')
 		return (0);
+	while (data->input_head->line[0] == '#')
+	{
+		ft_printf("%s\n", data->input_head->line);
+		to_free = data->input_head;
+		ft_strdel(&data->input_head->line);
+		data->input_head = data->input_head->next;
+		ft_memdel((void**)&to_free);
+	}
 	ft_printf("%s\n", data->input_head->line);
 	while (data->input_head->line[cn] != '\0')
 	{
