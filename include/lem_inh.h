@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/30 21:31:30 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:33:07 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void					ft_parse(t_data *data);
 int						ft_get_input(t_data *data);
 t_queue					*ft_add_queue(t_data *data, t_vertices
 		**vertex, t_edges **edg, t_path **pth);
-int						ft_print_moves(t_data *data, int ant_index, int si,
+int						ft_print_moves(t_data *data, int ant_index,
 		int arrived);
 void					ft_unvisit(t_v_buffer *visited);
 void					ft_exit(t_data *data);
@@ -142,7 +142,7 @@ void					ft_bfs(t_data *data);
 void					ft_free_queue(t_data *data);
 t_agroups				*ft_swing_paths(t_data *data, t_agroups *agroup);
 int						ft_load_paths(t_data *data, t_group *group,
-		int n_pths, int n_vrtx);
+		int n_pths);
 void					ft_add_flow(t_data *data);
 void					ft_flush_vbuffer(t_data *data);
 void					ft_add_path(t_data *data, t_vertices *vertex);

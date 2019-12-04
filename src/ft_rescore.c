@@ -6,7 +6,7 @@
 /*   By: azouiten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 20:44:10 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/30 20:52:24 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:19:23 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ int			ft_rescore(t_data *data, t_group *group)
 			break ;
 		grp = grp->next;
 	}
-	return (ft_load_paths(data, group, n_pths, n_vrtx));
+	return (ft_load_paths(data, group, n_pths));
 }

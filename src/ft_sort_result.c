@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 13:58:13 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/30 18:43:47 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:16:31 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ int				ft_sort_result(t_data *data)
 {
 	t_agroups	*temp;
 	t_group		*head;
-	int			len;
 
+	temp = NULL;
+	head = NULL;
 	if (!ft_list_to_array(data, 0))
 		ft_exit(data);
 	ft_qsort_group(data, 0, data->result->n_pths - 1);

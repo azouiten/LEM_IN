@@ -6,7 +6,7 @@
 #    By: ohachim <ohachim@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/24 13:47:22 by ohachim           #+#    #+#              #
-#    Updated: 2019/11/30 21:37:05 by azouiten         ###   ########.fr        #
+#    Updated: 2019/12/04 15:12:48 by ohachim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,8 +64,7 @@ NAME = lem-in
 
 CC = gcc
 
-CFLAGS =
-#add flags
+CFLAGS = -Wall -Wextra -Werror
 
 .PHONY: all, clean, fclean, re
 

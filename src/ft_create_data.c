@@ -6,21 +6,19 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 17:55:02 by ohachim           #+#    #+#             */
-/*   Updated: 2019/12/01 11:02:17 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/12/04 15:29:20 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_inh.h"
 
-static int		ft_ants(t_data *data)
+static int		ft_ants(t_data *data, int cn)
 {
 	t_input *to_free;
-	int	cn;
 
-	cn = 0;
-	if (!data->input_head->line || data->input_head->line[0] == '\0')
+	if (!data->input_head || data->input_head->line[0] == '\0')
 		return (0);
-	while (data->input_head->line[0] == '#')
+	while (data->input_head && data->input_head->line[0] == '#')
 	{
 		ft_printf("%s\n", data->input_head->line);
 		to_free = data->input_head;
@@ -28,6 +26,8 @@ static int		ft_ants(t_data *data)
 		data->input_head = data->input_head->next;
 		ft_memdel((void**)&to_free);
 	}
+	if (!data->input_head || data->input_head->line[0] == '\0')
+		return (0);
 	ft_printf("%s\n", data->input_head->line);
 	while (data->input_head->line[cn] != '\0')
 	{
@@ -67,7 +67,7 @@ static int		ft_vertex_check(t_input *input, int *vertices)
 
 int				ft_create_data(t_data *data)
 {
-	if (!(ft_ants(data))
+	if (!(ft_ants(data, 0))
 			|| !(ft_vertex_check(data->input_head, &data->vertices))
 			|| !ft_create_hash(data)
 			|| !ft_create_edges(data))

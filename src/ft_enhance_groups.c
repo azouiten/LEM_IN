@@ -6,7 +6,7 @@
 /*   By: azouiten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 18:07:09 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/30 20:50:36 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:17:18 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static	void	ft_load(t_group *tmp_grp, int max_size, int *ants)
 }
 
 int				ft_load_paths(t_data *data, t_group *group,
-		int n_pths, int n_vrtx)
+		int n_pths)
 {
 	int		max_size;
 	t_group	*tmp_grp;

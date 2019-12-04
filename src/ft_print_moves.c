@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 18:11:52 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/21 18:37:35 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/12/04 15:13:15 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void		ft_move(t_data *data, int ant_index, int si, int *arrived)
 	}
 }
 
-int				ft_print_moves(t_data *data, int ant_index, int si, int arrived)
+int				ft_print_moves(t_data *data, int ant_index, int arrived)
 {
 	if (!(ft_init_ants(data)))
 		return (0);

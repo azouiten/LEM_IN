@@ -6,7 +6,7 @@
 /*   By: azouiten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 18:13:18 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/30 19:01:44 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:18:56 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void				ft_bfs(t_data *data)
 	t_path	*path;
 	t_queue	*queue;
 
+	queue = NULL;
 	while (!data->agroups || !data->agroups->next ||
 			data->agroups->score <= data->agroups->next->score)
 	{
