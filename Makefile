@@ -6,7 +6,7 @@
 #    By: ohachim <ohachim@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/24 13:47:22 by ohachim           #+#    #+#              #
-#    Updated: 2019/12/10 14:52:14 by ohachim          ###   ########.fr        #
+#    Updated: 2019/12/10 15:58:10 by ohachim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,13 +72,13 @@ CFLAGS = -Wall -Wextra -Werror
 all: $(NAME) visu
 
 visu:
-	cd Lem_vis ; make
+	@cd Lem_vis ; make
 visur:
-	cd Lem_vis ; make re
+	@cd Lem_vis ; make re
 visuc:
-	cd Lem_vis ; make clean
+	@cd Lem_vis ; make clean
 visufc:
-	cd Lem_vis ; make fclean
+	@cd Lem_vis ; make fclean
 
 $(NAME): $(OBJ)
 	@cd libft ; make
