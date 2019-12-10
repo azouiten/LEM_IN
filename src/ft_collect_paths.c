@@ -6,7 +6,7 @@
 /*   By: azouiten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 18:00:19 by azouiten          #+#    #+#             */
-/*   Updated: 2019/12/10 17:43:44 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/12/10 17:51:58 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static	void	ft_head_group(t_data *data, t_edges *edg)
 	}
 }
 
-void			ft_collect_paths(t_data *data, t_edges *edg, t_group *group, int a)
+void			ft_collect_paths(t_data *data, t_edges *edg,
+		t_group *group, int a)
 {
 	edg = data->start->edges;
 	ft_head_group(data, edg);
