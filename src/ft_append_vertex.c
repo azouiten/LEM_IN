@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:42:13 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/21 17:58:51 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/12/10 14:56:42 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ static int		ft_find_duplicat(t_data *data, int hash, char *line)
 	while (temp)
 	{
 		if (!ft_strcmp(temp->name, name))
+		{
+			ft_strdel(&name);
 			return (1);
+		}
 		temp = temp->next;
 	}
 	ft_strdel(&name);

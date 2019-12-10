@@ -6,7 +6,7 @@
 /*   By: azouiten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 18:10:38 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/30 18:25:38 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/12/10 13:43:44 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_calibrate_loads(t_data *data)
 
 	gn = data->result->n_pths - 1;
 	n_load = ft_count(data);
-	while (n_load > data->ants + 1)
+	while (n_load - 1 > data->ants)
 	{
 		if (gn < 0)
 			gn = data->result->n_pths - 1;

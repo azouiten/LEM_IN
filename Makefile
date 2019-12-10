@@ -6,7 +6,7 @@
 #    By: ohachim <ohachim@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/24 13:47:22 by ohachim           #+#    #+#              #
-#    Updated: 2019/12/04 15:12:48 by ohachim          ###   ########.fr        #
+#    Updated: 2019/12/10 14:52:14 by ohachim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC_NAME = ft_get_input.c \
 	ft_rescore.c \
 	ft_free_agroups.c \
 	ft_free_queue.c \
+	ft_double_free.c \
 	main.c
 
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))

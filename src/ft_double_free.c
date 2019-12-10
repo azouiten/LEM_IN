@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_double_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/18 18:38:01 by azouiten          #+#    #+#             */
-/*   Updated: 2019/12/10 14:15:23 by ohachim          ###   ########.fr       */
+/*   Created: 2019/12/10 14:48:50 by ohachim           #+#    #+#             */
+/*   Updated: 2019/12/10 14:53:46 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_inh.h"
 
-int		main(void)
+int		ft_double_free(char **s1, char **s2)
 {
-	t_data	data;
-
-	ft_parse(&data);
-	ft_bfs(&data);
-	ft_calibrate_loads(&data);
-	ft_print_moves(&data, 0, 0);
-	ft_free_data(&data);
+	if (*s1)
+		free(*s1);
+	if (*s2)
+		free(*s2);
+	*s1 = 0;
+	*s2 = 0;
 	return (0);
 }

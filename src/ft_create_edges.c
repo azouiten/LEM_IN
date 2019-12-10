@@ -6,7 +6,7 @@
 /*   By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/26 13:17:10 by ohachim           #+#    #+#             */
-/*   Updated: 2019/11/30 15:25:19 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/12/10 14:54:00 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,11 @@ static int			ft_finish_assign(char **name, char **connection,
 		*temp_connection = (*temp_connection)->next;
 	if (!(temp_edge0 = ft_assign_connection(temp_name, temp_connection))
 		|| !(temp_edge1 = ft_assign_connection(temp_connection, temp_name)))
+	{
+		ft_strdel(name);
+		ft_strdel(connection);
 		return (0);
+	}
 	temp_edge0->edge_end = temp_edge1;
 	temp_edge1->edge_end = temp_edge0;
 	ft_strdel(name);
@@ -82,7 +86,7 @@ static int			ft_make_connection(t_data *data, t_input *p,
 		if (!ft_strchr(p->line, '-') || !(nod = ft_extract_edge(p->line))
 			|| !(connection = ft_extract_connection(p->line))
 			|| !(ft_check_validity(data, nod, connection)))
-			return (0);
+			return (ft_double_free(&connection, &nod));
 		if ((((hash_name = ft_hash_it(nod, data->vertices)) == -1))
 		|| ((hash_connection = ft_hash_it(connection, data->vertices)) == -1))
 			return (0);
