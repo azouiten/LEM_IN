@@ -6,7 +6,7 @@
 /*   By: azouiten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 18:13:18 by azouiten          #+#    #+#             */
-/*   Updated: 2019/12/10 16:36:01 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/12/10 17:43:25 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void				ft_bfs(t_data *data)
 		data->path = data->queue->path;
 		ft_flush_vbuffer(data);
 		ft_add_flow(data);
-		ft_collect_paths(data);
+		ft_collect_paths(data, 0, 0, 0);
 		ft_add_to_agroup(data);
 		ft_free_queue(data);
 	}

@@ -6,7 +6,7 @@
 /*   By: ohachim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:40:08 by ohachim           #+#    #+#             */
-/*   Updated: 2019/12/10 14:51:47 by ohachim          ###   ########.fr       */
+/*   Updated: 2019/12/10 17:43:05 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void					ft_flush_vbuffer(t_data *data);
 void					ft_add_path(t_data *data, t_vertices *vertex);
 void					ft_add_to_path(t_data *data, t_group *group,
 		t_vertices *vertex);
-void					ft_collect_paths(t_data *data);
+void					ft_collect_paths(t_data *data, t_edges *edges, t_group *group, int a);
 void					ft_add_to_agroup(t_data *data);
 int						ft_rescore(t_data *data, t_group *group);
 void					ft_enhance_groups(t_data *data);
