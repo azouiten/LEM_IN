@@ -6,7 +6,7 @@
 /*   By: azouiten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 18:00:19 by azouiten          #+#    #+#             */
-/*   Updated: 2019/11/30 19:12:28 by azouiten         ###   ########.fr       */
+/*   Updated: 2019/12/10 17:21:14 by ohachim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,19 @@ void			ft_collect_paths(t_data *data)
 {
 	t_edges	*edg;
 	t_group	*group;
+	int	a;
 
 	edg = data->start->edges;
 	ft_head_group(data, edg);
 	group = data->groups;
 	while (group)
 	{
+		a = 0;
 		edg = group->path->vertex->edges;
 		while (!edg || (edg->connection != data->end &&
-					edg->edge_end->connection != data->end))
+	edg->edge_end->connection != data->end) || (a == 0 && group->path->vertex != data->end))
 		{
+			a++;
 			edg = group->path->vertex->edges;
 			while (edg)
 			{
