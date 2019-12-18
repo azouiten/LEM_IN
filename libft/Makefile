@@ -6,7 +6,7 @@
 #    By: ohachim <ohachim@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/29 15:34:34 by ohachim           #+#    #+#              #
-#    Updated: 2019/09/19 14:52:29 by ohachim          ###   ########.fr        #
+#    Updated: 2019/12/18 14:47:43 by azouiten         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
    
@@ -143,6 +143,8 @@ CPPFLAGS = -Iinclude
 
 NAME = libft.a
 
+DEPS = include/libft.h
+
 CC = gcc
 
 CFLAGS = -Werror -Wextra -Werror
@@ -155,7 +157,7 @@ $(NAME): $(OBJ)
 	ar rc $@ $^
 	ranlib $@
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(DEPS)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 

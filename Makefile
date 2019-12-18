@@ -6,7 +6,7 @@
 #    By: ohachim <ohachim@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/24 13:47:22 by ohachim           #+#    #+#              #
-#    Updated: 2019/12/10 17:32:52 by ohachim          ###   ########.fr        #
+#    Updated: 2019/12/18 14:45:31 by azouiten         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,8 @@ LDLIBS = -lft
 
 NAME = lem-in
 
+DEPS = include/lem_inh.h
+
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
@@ -84,7 +86,7 @@ $(NAME): $(OBJ)
 	@cd libft ; make
 	$(CC) $^ -o $@ $(LDFLAGS) $(LDLIBS)
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(DEPS)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
